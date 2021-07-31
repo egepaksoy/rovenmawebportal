@@ -15,14 +15,17 @@ def register(request):
     if request.method == "POST":
       form = CreateUserForm(request.POST)
       password1 = request.POST.get("password1")
-      print(password1)
       if form.is_valid():
+        form.first_name = 
         form.save()
         user = form.cleaned_data.get("username")
         messages.success(request, "User created: " + user)
         return redirect('home')
 
-    context = {"form": form}
+    context = {
+      "form": form,
+      "users": User.objects.all(),
+      }
 
     return render(request, "register.html", context)
   else:

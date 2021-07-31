@@ -1,172 +1,99 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
-      crossorigin="anonymous"
-    />
-    <title>Register</title>
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-      integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
-      crossorigin="anonymous"
-    />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <link
-      rel="stylesheet"
-      href="https://use.fontawesome.com/releases/v5.6.1/css/all.css"
-      integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP"
-      crossorigin="anonymous"
-    />
+{% extends 'base.html' %} {% block head %}
 
-    <style>
-      body,
-      html {
-        margin: 0;
-        padding: 0;
-        height: 100%;
-        background: #474a48 !important;
-      }
-      .user_card {
-        width: 350px;
-        margin-top: auto;
-        margin-bottom: auto;
-        background: #2c302e;
-        position: relative;
-        display: flex;
-        justify-content: center;
-        flex-direction: column;
-        padding: 10px;
-        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
-          0 6px 20px 0 rgba(0, 0, 0, 0.19);
-        -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
-          0 6px 20px 0 rgba(0, 0, 0, 0.19);
-        -moz-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
-          0 6px 20px 0 rgba(0, 0, 0, 0.19);
-        border-radius: 5px;
-      }
+<title>Kullanıcı Yönetimi</title>
 
-      .form_container {
-        margin-top: 20px;
-      }
+{% endblock head %} {% block body %}
+<h4 class="text text-center mt-5 mb-4">Kullanıcı Oluştur</h4>
+<div class="kullanici-olustur">
+  <form
+    class="d-flex justify-content-center row gy-2 gx-3 align-items-center"
+    method="POST"
+    action=""
+  >
+    {% csrf_token %}
+    <!-- <div class="col-auto">
+      <label for="id_firstname" class="form-label">Kullanıcı Adı Soyadı</label>
+      <input type="text" name="firstname" id="id_firstname">
+    </div> -->
 
-      #form-title {
-        color: #fff;
-      }
-      .login_btn {
-        width: 100%;
-        background: #909590 !important;
-        color: white !important;
-      }
-      .login_btn:focus {
-        box-shadow: none !important;
-        outline: 0px !important;
-      }
-      .login_container {
-        padding: 0 2rem;
-      }
-      .input-group-text {
-        background: #c9184a !important;
-        color: white !important;
-        border: 0 !important;
-        border-radius: 0.25rem 0 0 0.25rem !important;
-      }
-      .input_user,
-      .input_pass:focus {
-        box-shadow: none !important;
-        outline: 0px !important;
-      }
-    </style>
-  </head>
-  <body>
-    {% if form.errors %}
-              <div
-                style="width: 300px"
-                class="
-                  position-absolute
-                  top-0
-                  end-0
-                  alert alert-warning alert-dismissible
-                  fade
-                  show
-                "
-                role="alert"
-              >
-                {{form.errors}}
-                <button
-                  type="button"
-                  class="btn-close"
-                  data-bs-dismiss="alert"
-                  aria-label="Close"
-                ></button>
-              </div>
-              {% endif %}
-    <div class="container h-100">
-      <div class="position-absolute top-0 start-50 translate-middle-x"></div>
-
-      <div class="d-flex justify-content-center h-100">
-        <div class="user_card">
-          <div class="d-flex justify-content-center">
-            <h3 id="form-title">Create Account</h3>
-          </div>
-          <div class="d-flex justify-content-center form_container">
-            <form method="POST" action="">
-              {% csrf_token %} 
-
-              <div class="input-group mb-3">
-                <div class="input-group-append">
-                  <span class="input-group-text"
-                    ><i class="fas fa-user"></i
-                  ></span>
-                </div>
-                {{form.username}}
-              </div>
-              <div class="input-group mb-2">
-                <div class="input-group-append">
-                  <span class="input-group-text"
-                    ><i class="fas fa-key"></i
-                  ></span>
-                </div>
-                {{form.password1}}
-              </div>
-              <div class="input-group mb-2">
-                <div class="input-group-append">
-                  <span class="input-group-text"
-                    ><i class="fas fa-key"></i
-                  ></span>
-                </div>
-                {{form.password2}}
-              </div>
-
-              <div class="d-flex justify-content-center mt-3 login_container">
-                <input class="btn login_btn" type="submit" value="Submit" />
-              </div>
-            </form>
-          </div>
-
-          <div class="mt-4"></div>
-        </div>
-      </div>
+    <div class="col-auto">
+      <label for="id_username" class="form-label">Kullanıcı Adı</label>
+      {{form.username}}
     </div>
-    <script>
-      var form_fields = document.getElementsByTagName("input");
-      form_fields[1].placeholder = "Username";
-      form_fields[2].placeholder = "Enter password";
-      form_fields[3].placeholder = "Re-enter Password";
 
-      for (var field in form_fields) {
-        form_fields[field].className += " form-control";
-      }
-    </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sha256/0.9.0/sha256.min.js"></script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-      crossorigin="anonymous"
-    ></script>
-  </body>
-</html>
+    <div class="col-auto">
+      <label for="id_password1" class="form-label">Şifre</label>
+      {{form.password2}}
+    </div>
+
+    <div class="col-auto">
+      <label for="id_password2" class="form-label">Şifre Doğrulama</label>
+      {{form.password2}}
+    </div>
+
+    <div class="col-auto">
+      <label for="usertype">Kullanıcı Tipi</label>
+      <select
+        id="usertype"
+        class="form-select"
+        name="usertype"
+        aria-label="Default select example"
+      >
+        <option value="superadmin">Super Admin</option>
+        <option value="admin">Admin</option>
+        <option value="operator">Operator</option>
+      </select>
+    </div>
+    <div class="col-auto">
+      <label></label>
+      <input class="btn btn-secondary" type="submit" value="Oluştur" />
+    </div>
+  </form>
+  <script>
+    var form_fields = document.getElementsByTagName("input");
+    // form_fields[1].placeholder = "Kullanıcı Adı Soyadı";
+    form_fields[1].placeholder = "Kullanıcı Adı";
+    form_fields[2].placeholder = "Şifre";
+    form_fields[3].placeholder = "Şifre Tekrarı";
+    for (var field in form_fields) {
+      form_fields[field].className += " form-control";
+    }
+  </script>
+</div>
+
+<hr class="mt-5" />
+
+<h4 class="text text-center mt-5 mb-4">Kullanıcı Ayarları</h4>
+<div class="">
+  <table class="table" style="margin: 0 15px;">
+    <thead>
+      <tr>
+        <th scope="col">Kullanıcı Adı Soyadı</th>
+        <th scope="col">Kullanıcı Adı</th>
+        <th scope="col">Yetki Durumu</th>
+        <th scope="col">Sil</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for user in users %}
+      <tr>
+        <td>{{user.first_name}} {{user.last_name}}</td>
+        <td>{{user}}</td>
+        
+        {% if user.is_staff %}
+          <td>Admin</td>
+        {% elif user.is_superuser %}
+          <td>Super Admin</td>
+        {% else %}
+          <td>Operator</td>
+        {% endif %}
+          
+        <td><a href="#" class="btn btn-outline-danger">Sil</a></td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+{% endblock body %}
 <!-- onclick="document.getElementById('password1').value = sha256(document.getElementById('password1').value)" -->

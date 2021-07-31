@@ -4,7 +4,6 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{% block title %} {% endblock title %}</title>
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -12,14 +11,250 @@
       crossorigin="anonymous"
     />
 
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+      integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+      crossorigin="anonymous"
+    />
+
     {% block head %} {% endblock head %}
   </head>
   <body>
-    {% block body %} {% endblock body %}
+    {% for message in messages %} {% if "info" == message.tags %}
+    <div
+      style="width: 300px"
+      class="
+        position-absolute
+        bottom-0
+        end-0
+        alert alert-warning alert-dismissible
+        fade
+        show
+      "
+      role="alert"
+    >
+      {{message}}
+      <button
+        type="button"
+        class="btn-close"
+        data-bs-dismiss="alert"
+        aria-label="Close"
+      ></button>
+    </div>
+    {% elif "success" in message.tags %}
+    <div
+      style="width: 300px"
+      class="
+        position-absolute
+        bottom-0
+        end-0
+        alert alert-success alert-dismissible
+        fade
+        show
+      "
+      role="alert"
+    >
+      {{message}}
+      <button
+        type="button"
+        class="btn-close"
+        data-bs-dismiss="alert"
+        aria-label="Close"
+      ></button>
+    </div>
+    {% endif %} {% endfor %} {% block nonavbar %}
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+        <a href="{% url 'home' %}" class="navbar-brand fs-3" href="#">
+          {% load static %}
+          <img
+            width="60"
+            height="50"
+            class="d-inline-block align-text-top"
+            src="{% static 'images/kindi.png' %}"
+            alt="Rovenma"
+        /></a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <!-- Menuler -->
+
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <!-- Ana sayfa -->
+
+            <li class="nav-item">
+              <a
+                class="nav-link active"
+                aria-current="page"
+                href="{% url 'home' %}"
+                >Ana Sayfa</a
+              >
+            </li>
+
+            <div class="nav navbar-nav me-auto mb-2 mb-lg-0">
+              <!-- Sistem Durumu -->
+
+              <li class="nav-item dropdown">
+                <a
+                  class="nav-link dropdown-toggle active"
+                  href="#"
+                  id="navbarDropdown"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  Sistem Durumu
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <li><a class="dropdown-item" href="#">İstatistikler</a></li>
+                  <li><a class="dropdown-item" href="#">Sensörler</a></li>
+                  <li><a class="dropdown-item" href="#">Log Dökümü</a></li>
+                </ul>
+              </li>
+
+              <!-- Sistem Ayarları -->
+
+              <li class="nav-item dropdown">
+                <a
+                  class="nav-link dropdown-toggle active"
+                  href="#"
+                  id="navbarDropdown"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  Sistem Ayarları
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <li>
+                    <a class="dropdown-item" href="#"
+                      >Uzakran Erişim Ayarları</a
+                    >
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="#">CLI Erişim Ayarları</a>
+                  </li>
+                  <li><a class="dropdown-item" href="#">Zaman Ayarları</a></li>
+                  <li><a class="dropdown-item" href="#">Log Ayarları</a></li>
+                  <li><a class="dropdown-item" href="#">Fan Ayarları</a></li>
+                  <li>
+                    <a class="dropdown-item" href="#">Seri No Ayarları</a>
+                  </li>
+                </ul>
+              </li>
+
+              <!-- Kullanıcı Ayarları -->
+
+              <li class="nav-item dropdown">
+                <a
+                  class="nav-link dropdown-toggle active"
+                  href="#"
+                  id="navbarDropdown"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  Kullanıcı Ayarları
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <li>
+                    <a class="dropdown-item" href="{% url 'register' %}"
+                      >Kullanıcı Yönetimi</a
+                    >
+                  </li>
+                  <li><a class="dropdown-item" href="#">Yetkilendirme</a></li>
+                  <li>
+                    <a class="dropdown-item" href="#">Şifre Değişikliği</a>
+                  </li>
+                </ul>
+              </li>
+
+              <!-- Protokol Ayarları -->
+
+              <li class="nav-item dropdown">
+                <a
+                  class="nav-link dropdown-toggle active"
+                  href="#"
+                  id="navbarDropdown"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  Protokol Ayarları
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <li>
+                    <a class="dropdown-item" href="#">Anahtar Yönetimi</a>
+                  </li>
+                  <li><a class="dropdown-item" href="#">VLAN Yönetimi</a></li>
+                  <li>
+                    <a class="dropdown-item" href="#">EtherType Yönetimi</a>
+                  </li>
+                  <li><a class="dropdown-item" href="#">MAC Yönetimi</a></li>
+                  <li>
+                    <a class="dropdown-item" href="#">Wildcard 3 Yönetimi</a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="#">Wildcard 4 Yönetimi</a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="#"
+                      >Paket Davranış Ayarları</a
+                    >
+                  </li>
+                </ul>
+              </li>
+            </div>
+          </ul>
+
+          <!-- Logout -->
+
+          <ul class="nav navbar-nav navbar-right">
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle active"
+                href="#"
+                id="navbarDropdown"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                Yardım
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" href="#">E-posta</a></li>
+                <li><a class="dropdown-item" href="#">Telefon</a></li>
+              </ul>
+            </li>
+
+            <li class="nav-item">
+              <a
+                class="nav-link active"
+                aria-current="page"
+                href="{% url 'logout' %}"
+                >Çıkış</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    {% endblock nonavbar %} {% block body %} {% endblock body %}
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
       crossorigin="anonymous"
     ></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   </body>
 </html>
