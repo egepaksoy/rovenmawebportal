@@ -65,7 +65,7 @@
 
 <h4 class="text text-center mt-5 mb-4">Kullanıcı Ayarları</h4>
 <div class="">
-  <table class="table" style="margin: 0 15px;">
+  <table class="table" style="margin: 0 15px">
     <thead>
       <tr>
         <th scope="col">Kullanıcı Adı Soyadı</th>
@@ -79,16 +79,20 @@
       <tr>
         <td>{{user.first_name}} {{user.last_name}}</td>
         <td>{{user}}</td>
-        
+
         {% if user.is_staff %}
-          <td>Admin</td>
+        <td>Admin</td>
         {% elif user.is_superuser %}
-          <td>Super Admin</td>
+        <td>Super Admin</td>
         {% else %}
-          <td>Operator</td>
+        <td>Operator</td>
         {% endif %}
-          
-        <td><a href="#" class="btn btn-outline-danger">Sil</a></td>
+        <td>
+          <form action="../delete/{{user}}" method="POST">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-outline-danger">Sil</button>
+          </form>
+        </td>
       </tr>
       {% endfor %}
     </tbody>

@@ -7,6 +7,19 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 
 
+def delete_user(request, username):
+  if request.method == "POST":
+    try:
+        user = User.objects.get(username = username)
+        user.delete()
+        print("kullanıcı silindi")
+        messages.success(request, "Kullanıcı Silindi")            
+
+    except User.DoesNotExist:
+        messages.error(request, "Kullanıcı Bulunamadı")
+  return redirect('register')
+
+
 def register(request):
   if request.user.is_authenticated:
     
@@ -16,8 +29,7 @@ def register(request):
       form = CreateUserForm(request.POST)
       password1 = request.POST.get("password1")
       if form.is_valid():
-        form.first_name = 
-        form.save()
+        form.save() 
         user = form.cleaned_data.get("username")
         messages.success(request, "User created: " + user)
         return redirect('home')
