@@ -32,15 +32,25 @@ def register(request):
 
       if form.is_valid():
         form.save()
-        user = form.cleaned_data.get("username")
-        messages.success(request, "Kullanıcı Oluşturuldu: " + user)
+        username = form.cleaned_data.get("username")
+        messages.success(request, "Kullanıcı Oluşturuldu: " + username)
+        usertype = request.POST.get("usertype")
+
+        user = User.objects.get(username=username)
+
+        if usertype == "superuser":
+          user.is_staff = True
+          user.is_superuser = True
+          user.save()
+        elif usertype == "staff":
+          user.is_staff = True
+          user.is_superuser = False
+          user.save()
+
         return redirect('register')
 
-      elif password2 != password1:
-        messages.info(request, "Şifreler Birbirinden Farklı")
+      messages.info(request, form.errors)
 
-      else:
-        messages.info(request, "Kullanıcı sisteme kayıtlı")
     context = {
       "form": form,
       "users": User.objects.all(),
