@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% block head %}
+<title>Log Kayıtları</title>
+<style>
+  table {
+    text-align: center;
+  }
+</style>
+{% endblock %}
+{% block body %}
+<div class="container mt-5">
+  <form method="post">
+    {% csrf_token %}
+    <div class="row g-3 align-items-center">
+    <div class="col-auto">
+      <label for="date" class="col-form-label">Log tarihi</label>
+    </div>
+    <div class="col-auto">
+      <input type="date" id="date" name="date" class="form-control">
+    </div>
+    <div class="col-auto">
+      <input type="submit" id="submit" name="submit" class="btn btn-outline-secondary" value="Ara"/>
+    </div>
+  </div>
+
+  </form>
+  <table class="mt-4 table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">Seviye</th>
+        <th scope="col">Kaynak</th>
+        <th scope="col">Kaynak Tipi</th>
+        <th scope="col">Tarih</th>
+        <th scope="col">Saat</th>
+        <th scope="col">Veri</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% if logs %}
+      {% for log in logs %}
+        <tr>
+          <td>{{log.level}}</td>
+          <td>{{log.source}}</td>
+          <td>{{log.type}}</td>
+          <td>{{log.date}}</td>
+          <td>{{log.time}}</td>
+          <td>{{log.data}}</td>
+        </tr>
+      {% endfor %}
+    {% else %}
+      <tr>
+        <th></th>
+        <th></th>
+        <th>NO LOG AVAILABLE</th>
+        <th></th>
+        <th></th>
+        <th></th>
+      </tr>
+    {% endif %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}
