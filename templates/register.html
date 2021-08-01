@@ -11,10 +11,11 @@
     action=""
   >
     {% csrf_token %}
-    <!-- <div class="col-auto">
-      <label for="id_firstname" class="form-label">Kullanıcı Adı Soyadı</label>
-      <input type="text" name="firstname" id="id_firstname">
-    </div> -->
+
+    <div class="col-auto">
+      <label for="id_username" class="form-label">Kullanıcı Adı Soyadı</label>
+      {{form.first_name}}
+    </div>
 
     <div class="col-auto">
       <label for="id_username" class="form-label">Kullanıcı Adı</label>
@@ -23,7 +24,7 @@
 
     <div class="col-auto">
       <label for="id_password1" class="form-label">Şifre</label>
-      {{form.password2}}
+      {{form.password1}}
     </div>
 
     <div class="col-auto">
@@ -51,10 +52,10 @@
   </form>
   <script>
     var form_fields = document.getElementsByTagName("input");
-    // form_fields[1].placeholder = "Kullanıcı Adı Soyadı";
-    form_fields[1].placeholder = "Kullanıcı Adı";
-    form_fields[2].placeholder = "Şifre";
-    form_fields[3].placeholder = "Şifre Tekrarı";
+    form_fields[1].placeholder = "Ad Soyad";
+    form_fields[2].placeholder = "Kullanıcı Adı";
+    form_fields[3].placeholder = "Şifre";
+    form_fields[4].placeholder = "Şifre Tekrarı";
     for (var field in form_fields) {
       form_fields[field].className += " form-control";
     }
@@ -80,10 +81,10 @@
         <td>{{user.first_name}} {{user.last_name}}</td>
         <td>{{user}}</td>
 
-        {% if user.is_staff %}
-        <td>Admin</td>
-        {% elif user.is_superuser %}
+        {% if user.is_superuser %}
         <td>Super Admin</td>
+        {% elif user.is_staff %}
+        <td>Admin</td>
         {% else %}
         <td>Operator</td>
         {% endif %}
