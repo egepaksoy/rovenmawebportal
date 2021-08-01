@@ -89,10 +89,12 @@
         <td>Operator</td>
         {% endif %}
         <td>
-          <form action="../delete/{{user}}" method="POST">
-            {% csrf_token %}
-            <button type="submit" class="btn btn-outline-danger">Sil</button>
-          </form>
+          {% if user != request.user %}
+            <form action="../delete/{{user}}" method="POST">
+              {% csrf_token %}
+              <button type="submit" class="btn btn-outline-danger">Sil</button>
+            </form>
+          {% endif %}
         </td>
       </tr>
       {% endfor %}
