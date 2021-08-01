@@ -10,8 +10,8 @@ def log_view(request):
             context = {
                 "logs": logs
             }
-            return render(request, "log.html", context)
+            return render(request, "status/log.html", context)
         else:
-            return render(request, "log.html")
+            return render(request, "status/log.html")
     else:
         return redirect("login")

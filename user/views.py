@@ -57,7 +57,7 @@ def register(request):
             "users": User.objects.all(),
         }
 
-        return render(request, "register.html", context)
+        return render(request, "user/register.html", context)
 
     if request.user.is_superuser == False:
         messages.info(request, "Bu alana erişmek için Super Admin olmanız gerekir.")
@@ -83,7 +83,7 @@ def login_view(request):
             else:
                 messages.info(request, 'Kullanıcı Adı Veya Parola Hatalı')
 
-        return render(request, "login.html")
+        return render(request, "user/login.html")
 
 
 def logout_view(request):
@@ -91,6 +91,8 @@ def logout_view(request):
     return redirect("login")
 
 
-@login_required(login_url="login")
 def home(request):
-    return render(request, "home.html")
+    if request.user.is_authenticated:
+        return render(request, "home.html")
+    else:
+        return redirect("login")

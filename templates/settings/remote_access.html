@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% block head %}
+<title>Uzaktan Erişim Ayarları</title>
+<style>
+    form {
+        text-align: center;
+    }
+    .col-8 {
+        margin-left: auto;
+        margin-right: auto;
+    }
+</style>
+{% endblock head %}
+{% block body %}
+    <div class="container mt-5">
+        <form method="post">
+          <div class="col-8 mt-4">
+            <label for="dhcp_setting" class="form-label">DHCP Enabled/Disabled</label>
+            <select class="form-select" name="dhcp_setting" id="dhcp_setting">
+              <option value="True" selected>Disabled</option>
+              <option value="False">Enabled</option>
+            </select>
+          </div>
+          <div class="col-8 mt-4">
+            <label for="ip_address" class="form-label">IP Address</label>
+            <input value="192.168.1.1" class="form-control" type="text" name="ip_address" id="ip_address">
+          </div>
+          <div class="col-8 mt-4">
+            <label for="port" class="form-label">Port</label>
+            <input value="80" class="form-control" type="text" name="port" id="port">
+          </div>
+          <div class="col-8 mt-4">
+            <label for="subnet_mask" class="form-label">Subnet Mask</label>
+            <input value="255.255.0.0" class="form-control" type="text" name="subnet_mask" id="subnet_mask">
+          </div>
+          <div class="col-8 mt-4">
+            <label for="boardcast_address" class="form-label">Broadcast Address</label>
+            <input value="192.168.1.1" class="form-control" type="text" name="boardcast_address" id="boardcast_address">
+          </div>
+          <div class="col-8 mt-4">
+            <label for="gateway_address" class="form-label">Gateway Address</label>
+            <input value="192.168.1.1" class="form-control" type="text" name="gateway_address" id="gateway_address">
+          </div>
+          <div class="col-8 mt-4">
+            <label for="dns_address" class="form-label">DNS Address</label>
+            <input value="192.168.1.1" class="form-control" type="text" name="dns_address" id="dns_address">
+          </div>
+          <div class="col-8 mt-4 mb-4">
+            <label for="dhcp_address" class="form-label">DHCP Address</label>
+            <input value="192.168.1.1" class="form-control" type="text" name="dhcp_address" id="dhcp_address">
+          </div>
+          <button type="submit" style="margin-bottom: 10%;" class="btn btn-outline-success">Kaydet</button>
+        </form>
+    </div>
+{% endblock body %}
