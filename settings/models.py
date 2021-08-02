@@ -10,3 +10,17 @@ class RemoteAccessSettings(models.Model):
     gateway_address = models.GenericIPAddressField(verbose_name="Gateway Address")
     dns_address = models.GenericIPAddressField(verbose_name="DNS Address")
     dhcp_address = models.GenericIPAddressField(verbose_name="DHCP Address")
+
+    def __str__(self):
+        return "RemoteAccessSettings"
+
+
+class LocalAccessSettings(models.Model):
+    baud_rate = models.IntegerField(verbose_name="Baud Rate")
+    data_bits = models.IntegerField(verbose_name="Data Bits")
+    stop_bits = models.IntegerField(verbose_name="Stop Bits")
+    parity = models.CharField(verbose_name="Parity Field", max_length=50)
+
+    def __str__(self):
+        return "LocalAddressSettings"
+
