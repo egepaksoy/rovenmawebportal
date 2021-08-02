@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
-from .models import RemoteAccessSettings, LocalAccessSettings
+from .models import *
+
 
 # TODO: yanlarda küçük yardım balonları olucak
 def remote_access(request):
@@ -49,7 +50,44 @@ def local_access(request):
 
 def time_settings(request):
     if request.user.is_authenticated:
+        times = [0]
+        for time in range(24):
+            times.append(time+1)
 
-        return render(request, "settings/time_settings.html")
+        time_setting = TimeSettings.objects.all().first()
+
+        if request.method == "POST":
+            time_setting.use_ntp = request.POST.get("ntp_use")
+            time_setting.time = request.POST.get("time")
+            time_setting.date = request.POST.get("date")
+            time_setting.server1 = request.POST.get("server1")
+            time_setting.ip_address1 = request.POST.get("ip_address1")
+            time_setting.timezone1 = request.POST.get("timezone1")
+            time_setting.server2 = request.POST.get("server2")
+            time_setting.ip_address2 = request.POST.get("ip_address2")
+            time_setting.timezone2 = request.POST.get("timezone2")
+            time_setting.save()
+            return redirect("time_settings")
+        else:
+            hour = str(time_setting.time.hour)
+            minute = str(time_setting.time.minute)
+            day = str(time_setting.date.day)
+            month = str(time_setting.date.month)
+            if len(hour) == 1:
+                hour = "0"+hour
+            if len(minute) == 1:
+                minute = "0"+minute
+            if len(month) == 1:
+                month = "0"+month
+            if len(day) == 1:
+                day = "0"+day
+            context = {
+                "times": times,
+                "time_settings": time_setting,
+                "time": hour+":"+minute,
+                "date": str(time_setting.date.year)+"-"+month+"-"+day
+            }
+
+            return render(request, "settings/time_settings.html", context=context)
     else:
         return redirect("login")
