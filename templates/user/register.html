@@ -4,7 +4,7 @@
 
 {% endblock head %} {% block body %}
 <h4 class="text text-center mt-5 mb-4">Kullanıcı Oluştur</h4>
-<div class="kullanici-olustur">
+<div class="m-4 kullanici-olustur">
   <form
     class="d-flex justify-content-center row gy-2 gx-3 align-items-center"
     method="POST"
@@ -65,7 +65,7 @@
 <hr class="mt-5" />
 
 <h4 class="text text-center mt-5 mb-4">Kullanıcı Ayarları</h4>
-<div class="">
+<div class="container">
   <table class="table" style="margin: 0 15px">
     <thead>
       <tr>
@@ -90,7 +90,7 @@
         {% endif %}
         <td>
           {% if user != request.user %}
-            <form action="../delete/{{user}}" method="POST">
+            <form action="{% url 'delete' username=user %}" method="POST">
               {% csrf_token %}
               <button type="submit" class="btn btn-outline-danger">Sil</button>
             </form>
