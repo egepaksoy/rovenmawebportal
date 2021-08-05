@@ -52,3 +52,18 @@ class LocalAccessArticles(models.Model):
     def __str__(self):
         return self.lang
 
+
+class TimeSettingsArticles(models.Model):
+    lang = models.CharField(verbose_name="Language (like TR or EN)", max_length=2)
+    title = models.CharField(verbose_name="Time Settings (title)", max_length=35)
+    ntp_enabled = models.CharField(verbose_name="NTP Enabled/Disabled (field)", max_length=30)
+    date_time_field = models.CharField(verbose_name="Date and Time (field)", max_length=25)
+    server_field = models.CharField(verbose_name="Server (field)", max_length=25)
+    ip_address = models.CharField(verbose_name="IP Address (field)", max_length=50)
+    timezone = models.CharField(verbose_name="Timezone", max_length=25)
+    enabled = models.CharField(verbose_name="Enabled (text)", max_length=25)
+    disabled = models.CharField(verbose_name="Disabled (text)", max_length=25)
+    save_text = models.CharField(verbose_name="Save (text)", max_length=25)
+
+    def __str__(self):
+        return self.lang

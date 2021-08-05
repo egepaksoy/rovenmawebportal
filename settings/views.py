@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from .models import *
-from page_articles.models import RemoteAccessArticles, LocalAccessArticles
+from page_articles.models import RemoteAccessArticles, LocalAccessArticles, TimeSettingsArticles
 
 
 # TODO: yanlarda küçük yardım balonları olucak
@@ -65,9 +65,13 @@ def local_access_view(request):
 
 def time_settings_view(request):
     if request.user.is_authenticated:
-        lang = request.COOKIES.get("lang")
-        if not request.COOKIES.get("lang"):
-            lang = "EN"
+        lang = "EN"
+        cookie_lang = request.COOKIES.get("lang")
+        for article in TimeSettingsArticles.objects.all():
+            if cookie_lang == article.lang:
+                lang = article.lang
+                break
+        articles = TimeSettingsArticles.objects.get(lang=lang)
         times = [0]
         for time in range(24):
             times.append(time+1)
@@ -101,6 +105,7 @@ def time_settings_view(request):
                 day = "0"+day
             context = {
                 "times": times,
+                "articles": articles,
                 "time_settings": time_setting,
                 "time": hour+":"+minute,
                 "date": str(time_setting.date.year)+"-"+month+"-"+day
