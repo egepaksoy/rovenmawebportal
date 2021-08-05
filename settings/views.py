@@ -1,10 +1,18 @@
 from django.shortcuts import render, redirect
 from .models import *
+from page_articles.models import RemoteAccessArticles, LocalAccessArticles
 
 
 # TODO: yanlarda küçük yardım balonları olucak
-def remote_access(request):
+def remote_access_view(request):
     if request.user.is_authenticated:
+        lang = "EN"
+        cookie_lang = request.COOKIES.get("lang")
+        for article in RemoteAccessArticles.objects.all():
+            if cookie_lang == article.lang:
+                lang = article.lang
+                break
+        articles = RemoteAccessArticles.objects.get(lang=lang)
         values = RemoteAccessSettings.objects.all().first()
         if request.method == "POST":
             values.dhcp_enabled = request.POST.get("dhcp_setting")
@@ -26,13 +34,20 @@ def remote_access(request):
                 enable = ""
                 disable = "selected"
 
-            return render(request, "settings/remote_access.html", {"value": values})
+            return render(request, "settings/remote_access.html", {"value": values, "articles": articles})
     else:
         return redirect("login")
 
 
-def local_access(request):
+def local_access_view(request):
     if request.user.is_authenticated:
+        lang = "EN"
+        cookie_lang = request.COOKIES.get("lang")
+        for article in LocalAccessArticles.objects.all():
+            if cookie_lang == article.lang:
+                lang = article.lang
+                break
+        articles = LocalAccessArticles.objects.get(lang=lang)
         values = LocalAccessSettings.objects.all().first()
         if request.method == "POST":
             values.baud_rate = request.POST.get("baud_rate")
@@ -43,13 +58,16 @@ def local_access(request):
 
             return redirect("local_access")
 
-        return render(request, "settings/local_access.html", {"values": values})
+        return render(request, "settings/local_access.html", {"values": values, "articles": articles})
     else:
         return redirect("login")
 
 
-def time_settings(request):
+def time_settings_view(request):
     if request.user.is_authenticated:
+        lang = request.COOKIES.get("lang")
+        if not request.COOKIES.get("lang"):
+            lang = "EN"
         times = [0]
         for time in range(24):
             times.append(time+1)

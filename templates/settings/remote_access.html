@@ -16,52 +16,52 @@
 {% endblock head %}
 {% block body %}
     <div class="container mt-5">
-      <h3 class="text mt-3 mb-5">Remote Erişim Ayarları</h3>
+      <h3 class="text mt-3 mb-5">{{articles.title}}</h3>
         <form method="post">
           {% csrf_token %}
           {% if value %}
             <div class="col-8 mt-4">
-              <label for="dhcp_setting" class="form-label">DHCP Enabled/Disabled</label>
+              <label for="dhcp_setting" class="form-label">{{articles.dhcp}}</label>
               <select class="form-select" name="dhcp_setting" id="dhcp_setting">
                 {% if value.dhcp_enabled %}
-                  <option value="True" selected>Enabled</option>
-                <option value="False" >Disabled</option>
+                  <option value="True" selected>{{articles.enabled}}</option>
+                <option value="False" >{{articles.disabled}}</option>
                 {% else %}
-                <option value="False" selected>Disabled</option>
-                <option value="True" >Enabled</option>
+                <option value="False" selected>{{articles.disabled}}</option>
+                <option value="True" >{{articles.enabled}}</option>
                 {% endif %}
               </select>
             </div>
             <div class="col-8 mt-4">
-              <label for="ip_address" class="form-label">IP Address</label>
+              <label for="ip_address" class="form-label">{{articles.ip_address}}</label>
               <input value="{{value.ip_address}}" class="form-control" type="text" name="ip_address" id="ip_address">
             </div>
             <div class="col-8 mt-4">
-              <label for="port" class="form-label">Port</label>
+              <label for="port" class="form-label">{{articles.port}}</label>
               <input value="{{value.port}}" class="form-control" type="text" name="port" id="port">
             </div>
             <div class="col-8 mt-4">
-              <label for="subnet_mask" class="form-label">Subnet Mask</label>
+              <label for="subnet_mask" class="form-label">{{articles.subnet_mask}}</label>
               <input value="{{value.subnet_mask}}" class="form-control" type="text" name="subnet_mask" id="subnet_mask">
             </div>
             <div class="col-8 mt-4">
-              <label for="boardcast_address" class="form-label">Broadcast Address</label>
+              <label for="boardcast_address" class="form-label">{{articles.broadcast_address}}</label>
               <input value="{{value.broadcast_address}}" class="form-control" type="text" name="broadcast_address" id="boardcast_address">
             </div>
             <div class="col-8 mt-4">
-              <label for="gateway_address" class="form-label">Gateway Address</label>
+              <label for="gateway_address" class="form-label">{{articles.gateway_address}}</label>
               <input value="{{value.gateway_address}}" class="form-control" type="text" name="gateway_address" id="gateway_address">
             </div>
             <div class="col-8 mt-4">
-              <label for="dns_address" class="form-label">DNS Address</label>
+              <label for="dns_address" class="form-label">{{articles.dns_address}}</label>
               <input value="{{value.dns_address}}" class="form-control" type="text" name="dns_address" id="dns_address">
             </div>
             <div class="col-8 mt-4 mb-4">
-              <label for="dhcp_address" class="form-label">DHCP Address</label>
+              <label for="dhcp_address" class="form-label">{{articles.dhcp_address}}</label>
               <input value="{{value.dhcp_address}}" class="form-control" type="text" name="dhcp_address" id="dhcp_address">
             </div>
           {% endif %}
-          <button type="submit" style="margin-bottom: 10%;" class="btn btn-outline-success">Kaydet</button>
+          <button type="submit" style="margin-bottom: 10%;" class="btn btn-outline-success">{{articles.save_text}}</button>
         </form>
     </div>
 <script>

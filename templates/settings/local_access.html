@@ -16,11 +16,11 @@
 {% endblock head %}
 {% block body %}
     <div class="container mt-5">
-      <h3 class="text mt-3 mb-5">Local Erişim Ayarları</h3>
+      <h3 class="text mt-3 mb-5">{{articles.title}}</h3>
         <form method="post">
           {% csrf_token %}
             <div class="col-8 mt-4">
-              <label for="baud_rate" class="form-label">Baud Rate (ŞU AN: {{values.baud_rate}})</label>
+              <label for="baud_rate" class="form-label">Baud Rate ({{articles.now_text}}: {{values.baud_rate}})</label>
               <select class="form-select" name="baud_rate" id="baud_rate">
                 <option value="1200">1200</option>
                 <option value="2400">2400</option>
@@ -31,7 +31,7 @@
               </select>
             </div>
             <div class="col-8 mt-4">
-              <label for="data_bits" class="form-label">Data Bits (ŞU AN: {{values.data_bits}})</label>
+              <label for="data_bits" class="form-label">{{articles.data_bits}} ({{articles.now_text}}: {{values.data_bits}})</label>
               <select class="form-select" name="data_bits" id="data_bits">
                 <option value="2">2</option>
                 <option value="4">4</option>
@@ -44,7 +44,7 @@
               </select>
             </div>
           <div class="col-8 mt-4">
-              <label for="stop_bits" class="form-label">Stop Bits (ŞU AN: {{values.stop_bits}})</label>
+              <label for="stop_bits" class="form-label">{{articles.stop_bits}} ({{articles.now_text}}: {{values.stop_bits}})</label>
               <select class="form-select" name="stop_bits" id="stop_bits">
                 <option value="1">1</option>
                 <option value="2">2</option>
@@ -58,7 +58,7 @@
               </select>
             </div>
           <div class="col-8 mt-4 mb-4">
-              <label for="parity" class="form-label">Parity (ŞU AN: {{values.parity}})</label>
+              <label for="parity" class="form-label">{{articles.parity_text}} ({{articles.now_text}}: {{values.parity}})</label>
               <select class="form-select" name="parity" id="parity">
                 <option value="None">None</option>
                 <option value="Odd">Odd</option>
@@ -66,7 +66,7 @@
               </select>
             </div>
 
-          <button type="submit" style="margin-bottom: 10%;" class="btn btn-outline-success">Kaydet</button>
+          <button type="submit" style="margin-bottom: 10%;" class="btn btn-outline-success">{{articles.save_text}}</button>
         </form>
     </div>
 <script>

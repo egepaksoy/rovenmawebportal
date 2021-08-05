@@ -23,6 +23,9 @@ def delete_user(request, username):
 
 def register(request):
     if request.user.is_authenticated and request.user.is_superuser:
+        lang = request.COOKIES.get("lang")
+        if not request.COOKIES.get("lang"):
+            lang = "EN"
 
         form = CreateUserForm()
 
@@ -69,6 +72,9 @@ def register(request):
 
 def login_view(request):
     if request.user.is_authenticated:
+        lang = request.COOKIES.get("lang")
+        if not request.COOKIES.get("lang"):
+            lang = "EN"
         return redirect('home')
     else:
         if request.method == "POST":
@@ -93,6 +99,11 @@ def logout_view(request):
 
 def home(request):
     if request.user.is_authenticated:
-        return render(request, "home.html")
+        if not request.COOKIES.get("lang"):
+            response = render(request, "home.html")
+            response.set_cookie("lang", "EN")
+            return response
+        else:
+            return render(request, "home.html")
     else:
         return redirect("login")

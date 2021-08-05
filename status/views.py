@@ -1,9 +1,18 @@
 from django.shortcuts import render, redirect
-from .models import Log
+from page_articles.models import LogArticles
+
 
 
 def log_view(request):
     if request.user.is_authenticated:
+        lang = "EN"
+        cookie_lang = request.COOKIES.get("lang")
+        for article in LogArticles.objects.all():
+            if cookie_lang == article.lang:
+                lang = article.lang
+                break
+
+        articles = LogArticles.objects.get(lang=lang)
         if request.method == "POST":
             date = request.POST.get("date")
             date_text = date[8:10] + date[5:7] + date[:4]
@@ -41,6 +50,7 @@ def log_view(request):
                 page_start = 0
 
             context = {
+                "articles": articles,
                 "logs": logs[page_start:page_end],
                 "file_is_available": file_is_available,
                 "date": date,
@@ -49,6 +59,9 @@ def log_view(request):
             }
             return render(request, "status/log.html", context)
         else:
-            return render(request, "status/log.html")
+            context = {
+                "articles": articles
+            }
+            return render(request, "status/log.html", context=context)
     else:
         return redirect("login")
