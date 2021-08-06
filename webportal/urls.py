@@ -8,6 +8,7 @@ urlpatterns = [
     path('', include('user.urls')),
     path('', include('status.urls')),
     path('', include('settings.urls')),
+    path('', include('page_articles.urls')),
 ]
 
 urlpatterns += staticfiles_urlpatterns()

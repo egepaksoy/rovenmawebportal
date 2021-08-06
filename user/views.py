@@ -5,6 +5,7 @@ from .forms import CreateUserForm
 from django.contrib import messages
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
+from page_articles.models import *
 
 
 def delete_user(request, username):
@@ -23,10 +24,15 @@ def delete_user(request, username):
 
 def register(request):
     if request.user.is_authenticated and request.user.is_superuser:
-        lang = request.COOKIES.get("lang")
-        if not request.COOKIES.get("lang"):
-            lang = "EN"
+        lang = "EN"
+        cookie_lang = request.COOKIES.get("lang")
+        for article in UserAdministration.objects.all():
+            if cookie_lang == article.lang:
+                lang = article.lang
+                break
 
+        articles = UserAdministration.objects.get(lang=lang)
+        navbar = NavbarFooterArticles.objects.get(lang=lang)
         form = CreateUserForm()
 
         if request.method == "POST":
@@ -57,7 +63,9 @@ def register(request):
 
         context = {
             "form": form,
+            "articles": articles,
             "users": User.objects.all(),
+            "navbar": navbar,
         }
 
         return render(request, "user/register.html", context)
@@ -72,9 +80,6 @@ def register(request):
 
 def login_view(request):
     if request.user.is_authenticated:
-        lang = request.COOKIES.get("lang")
-        if not request.COOKIES.get("lang"):
-            lang = "EN"
         return redirect('home')
     else:
         if request.method == "POST":
@@ -89,7 +94,10 @@ def login_view(request):
             else:
                 messages.info(request, 'Kullanıcı Adı Veya Parola Hatalı')
 
-        return render(request, "user/login.html")
+        navbar = NavbarFooterArticles.objects.get(lang="EN")
+        response = render(request, "user/login.html", {"navbar": navbar})
+        response.set_cookie("lang", "EN")
+        return response
 
 
 def logout_view(request):
@@ -100,10 +108,17 @@ def logout_view(request):
 def home(request):
     if request.user.is_authenticated:
         if not request.COOKIES.get("lang"):
-            response = render(request, "home.html")
+            response = redirect("home")
             response.set_cookie("lang", "EN")
             return response
         else:
-            return render(request, "home.html")
+            lang = "EN"
+            cookie_lang = request.COOKIES.get("lang")
+            for article in NavbarFooterArticles.objects.all():
+                if cookie_lang == article.lang:
+                    lang = article.lang
+                    break
+            navbar = NavbarFooterArticles.objects.get(lang=lang)
+            return render(request, "home.html", {"navbar": navbar})
     else:
         return redirect("login")

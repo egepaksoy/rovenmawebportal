@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from .models import *
-from page_articles.models import RemoteAccessArticles, LocalAccessArticles, TimeSettingsArticles
+from page_articles.models import RemoteAccessArticles, LocalAccessArticles, TimeSettingsArticles, NavbarFooterArticles
 
 
 # TODO: yanlarda küçük yardım balonları olucak
@@ -13,6 +13,7 @@ def remote_access_view(request):
                 lang = article.lang
                 break
         articles = RemoteAccessArticles.objects.get(lang=lang)
+        navbar = NavbarFooterArticles.objects.get(lang=lang)
         values = RemoteAccessSettings.objects.all().first()
         if request.method == "POST":
             values.dhcp_enabled = request.POST.get("dhcp_setting")
@@ -34,7 +35,7 @@ def remote_access_view(request):
                 enable = ""
                 disable = "selected"
 
-            return render(request, "settings/remote_access.html", {"value": values, "articles": articles})
+            return render(request, "settings/remote_access.html", {"value": values, "articles": articles, "navbar": navbar})
     else:
         return redirect("login")
 
@@ -48,6 +49,7 @@ def local_access_view(request):
                 lang = article.lang
                 break
         articles = LocalAccessArticles.objects.get(lang=lang)
+        navbar = NavbarFooterArticles.objects.get(lang=lang)
         values = LocalAccessSettings.objects.all().first()
         if request.method == "POST":
             values.baud_rate = request.POST.get("baud_rate")
@@ -58,7 +60,7 @@ def local_access_view(request):
 
             return redirect("local_access")
 
-        return render(request, "settings/local_access.html", {"values": values, "articles": articles})
+        return render(request, "settings/local_access.html", {"values": values, "articles": articles, "navbar": navbar})
     else:
         return redirect("login")
 
@@ -72,6 +74,7 @@ def time_settings_view(request):
                 lang = article.lang
                 break
         articles = TimeSettingsArticles.objects.get(lang=lang)
+        navbar = NavbarFooterArticles.objects.get(lang=lang)
         times = [0]
         for time in range(24):
             times.append(time+1)
@@ -107,6 +110,7 @@ def time_settings_view(request):
                 "times": times,
                 "articles": articles,
                 "time_settings": time_setting,
+                "navbar": navbar,
                 "time": hour+":"+minute,
                 "date": str(time_setting.date.year)+"-"+month+"-"+day
             }

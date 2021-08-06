@@ -1,3 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import redirect
 
-# Create your views here.
+
+def change_lang(request, lang):
+    response = redirect("home")
+    response.set_cookie("lang", lang)
+    return response

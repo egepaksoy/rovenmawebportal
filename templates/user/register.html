@@ -1,9 +1,208 @@
 {% extends 'base.html' %} {% block head %}
 
-<title>Kullanıcı Yönetimi</title>
+<title>{{ articles.user_administration }}</title>
 
 {% endblock head %} {% block body %}
-<h4 class="text text-center mt-5 mb-4">Kullanıcı Oluştur</h4>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+          <div class="container-fluid">
+            <a href="{% url 'home' %}" class="navbar-brand fs-3" href="#">
+              {% load static %}
+              <img
+                width="60"
+                height="50"
+                class="d-inline-block align-text-top"
+                src="{% static 'images/kindi.png' %}"
+                alt="Kindi"
+            /></a>
+            <button
+              class="navbar-toggler"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#navbarSupportedContent"
+              aria-controls="navbarSupportedContent"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <!-- Menuler -->
+
+              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <!-- Ana sayfa -->
+
+                <li class="nav-item">
+                  <a
+                    class="nav-link active"
+                    aria-current="page"
+                    href="{% url 'home' %}"
+                    >{{ navbar.homepage }}</a
+                  >
+                </li>
+
+                <div class="nav navbar-nav me-auto mb-2 mb-lg-0">
+                  <!-- Sistem Durumu -->
+
+                  <li class="nav-item dropdown">
+                    <a
+                      class="nav-link dropdown-toggle active"
+                      href="#"
+                      id="navbarDropdown"
+                      role="button"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    >
+                      {{ navbar.system_status }}
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                      <li>
+                        <a class="dropdown-item" href="#">{{ navbar.statistics_field }}</a>
+                      </li>
+                      <li><a class="dropdown-item" href="#">{{ navbar.sensors }}</a></li>
+                      <li>
+                        <a class="dropdown-item" href="{% url 'log' %}"
+                          >{{ navbar.log_records }}</a
+                        >
+                      </li>
+                    </ul>
+                  </li>
+
+                  <!-- Sistem Ayarları -->
+
+                  <li class="nav-item dropdown">
+                    <a
+                      class="nav-link dropdown-toggle active"
+                      href="#"
+                      id="system_settings"
+                      role="button"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    >
+                      {{ navbar.system_settings }}
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                      <li>
+                        <a
+                          class="dropdown-item"
+                          href="{% url 'remote_access' %}"
+                          >{{ navbar.remote_access_settings }}</a
+                        >
+                      </li>
+                      <li>
+                        <a class="dropdown-item" href="{% url 'local_access' %}"
+                          >{{ navbar.cli_access_settings }}</a
+                        >
+                      </li>
+                      <li>
+                        <a
+                          class="dropdown-item"
+                          href="{% url 'time_settings' %}"
+                          >{{ navbar.time_settings }}</a
+                        >
+                      </li>
+                    </ul>
+                  </li>
+
+                  <!-- Kullanıcı Ayarları -->
+
+                  <li class="nav-item dropdown">
+                    <a
+                      class="nav-link dropdown-toggle active"
+                      href="#"
+                      id="user_settings"
+                      role="button"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    >
+                      {{ navbar.user_settings }}
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                      <li>
+                        <a class="dropdown-item" href="{% url 'register' %}"
+                          >{{ navbar.user_administration }}</a
+                        >
+                      </li>
+                      <li>
+                        <a class="dropdown-item" href="#">{{ navbar.authorization }}</a>
+                      </li>
+                      <li>
+                        <a class="dropdown-item" href="#">{{ navbar.password_changing }}</a>
+                      </li>
+                    </ul>
+                  </li>
+
+                  <!-- Protokol Ayarları -->
+
+                  <li class="nav-item dropdown">
+                    <a
+                      class="nav-link dropdown-toggle active"
+                      href="#"
+                      id="portokol_settings"
+                      role="button"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    >
+                      Protokol Ayarları
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                      <li>
+                        <a class="dropdown-item" href="#">Anahtar Yönetimi</a>
+                      </li>
+                      <li>
+                        <a class="dropdown-item" href="#">VLAN Yönetimi</a>
+                      </li>
+                      <li>
+                        <a class="dropdown-item" href="#">EtherType Yönetimi</a>
+                      </li>
+                      <li>
+                        <a class="dropdown-item" href="#">MAC Yönetimi</a>
+                      </li>
+                      <li>
+                        <a class="dropdown-item" href="#"
+                          >Wildcard 3 Yönetimi</a
+                        >
+                      </li>
+                      <li>
+                        <a class="dropdown-item" href="#"
+                          >Wildcard 4 Yönetimi</a
+                        >
+                      </li>
+                      <li>
+                        <a class="dropdown-item" href="#"
+                          >Paket Davranış Ayarları</a
+                        >
+                      </li>
+                    </ul>
+                  </li>
+                </div>
+              </ul>
+
+              <!-- Logout -->
+
+              <ul class="nav navbar-nav navbar-right">
+                <li class="nav-item">
+                  <p class="nav-link active">{{request.user}}</p>
+                </li>
+
+                <li class="nav-item">
+                  <a
+                    class="nav-link active"
+                    aria-current="page"
+                    href="{% url 'logout' %}"
+                    >{{ navbar.logout_link }}</a
+                  >
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+
+
+
+
+
+
+<h4 class="text text-center mt-5 mb-4">{{ articles.user_create_title }}</h4>
 <div class="m-4 kullanici-olustur">
   <form
     class="d-flex justify-content-center row gy-2 gx-3 align-items-center"
@@ -13,27 +212,27 @@
     {% csrf_token %}
 
     <div class="col-auto">
-      <label for="id_username" class="form-label">Kullanıcı Adı Soyadı</label>
+      <label for="id_username" class="form-label">{{ articles.user_name_surname }}</label>
       {{form.first_name}}
     </div>
 
     <div class="col-auto">
-      <label for="id_username" class="form-label">Kullanıcı Adı</label>
+      <label for="id_username" class="form-label">{{ articles.username }}</label>
       {{form.username}}
     </div>
 
     <div class="col-auto">
-      <label for="id_password1" class="form-label">Şifre</label>
+      <label for="id_password1" class="form-label">{{ articles.password }}</label>
       {{form.password1}}
     </div>
 
     <div class="col-auto">
-      <label for="id_password2" class="form-label">Şifre Doğrulama</label>
+      <label for="id_password2" class="form-label">{{ articles.confirm_password }}</label>
       {{form.password2}}
     </div>
 
     <div class="col-auto">
-      <label for="usertype">Kullanıcı Tipi</label>
+      <label for="usertype">{{ articles.authority_status }}</label>
       <select
         id="usertype"
         class="form-select"
@@ -47,15 +246,15 @@
     </div>
     <div class="col-auto">
       <label></label>
-      <input class="btn btn-secondary" type="submit" value="Oluştur" />
+      <input class="btn btn-secondary" type="submit" value="{{ articles.create_user }}" />
     </div>
   </form>
   <script>
     var form_fields = document.getElementsByTagName("input");
-    form_fields[1].placeholder = "Ad Soyad";
-    form_fields[2].placeholder = "Kullanıcı Adı";
-    form_fields[3].placeholder = "Şifre";
-    form_fields[4].placeholder = "Şifre Tekrarı";
+    form_fields[1].placeholder = "{{ articles.user_name_surname }}";
+    form_fields[2].placeholder = "{{ articles.username }}";
+    form_fields[3].placeholder = "{{ articles.password }}";
+    form_fields[4].placeholder = "{{ articles.confirm_password }}";
     for (var field in form_fields) {
       form_fields[field].className += " form-control";
     }
@@ -64,15 +263,15 @@
 
 <hr class="mt-5" />
 
-<h4 class="text text-center mt-5 mb-4">Kullanıcı Ayarları</h4>
+<h4 class="text text-center mt-5 mb-4">{{ articles.user_settings }}</h4>
 <div class="container">
   <table class="table" style="margin: 0 15px">
     <thead>
       <tr>
-        <th scope="col">Kullanıcı Adı Soyadı</th>
-        <th scope="col">Kullanıcı Adı</th>
-        <th scope="col">Yetki Durumu</th>
-        <th scope="col">Sil</th>
+        <th scope="col">{{ articles.user_name_surname }}</th>
+        <th scope="col">{{ articles.username }}</th>
+        <th scope="col">{{ articles.authority_status }}</th>
+        <th scope="col">{{ articles.delete }}</th>
       </tr>
     </thead>
     <tbody>
@@ -92,7 +291,7 @@
           {% if user != request.user %}
             <form action="{% url 'delete' username=user %}" method="POST">
               {% csrf_token %}
-              <button type="submit" class="btn btn-outline-danger">Sil</button>
+              <button type="submit" class="btn btn-outline-danger">{{ articles.delete }}</button>
             </form>
           {% endif %}
         </td>
@@ -102,5 +301,40 @@
   </table>
 </div>
 
+
+
+<footer id="footer" class="text-center text-lg-start bg-light text-muted">
+        <div
+          class="text-center p-4"
+          style="background-color: rgba(0, 0, 0, 0.05)"
+        >
+          <div style="display: inline-block; float: left">
+            <a href="{% url 'change_lang' lang='TR' %}">Türkçe</a> |
+            <a href="{% url 'change_lang' lang='EN' %}">English</a> |
+            <a href="{% url 'change_lang' lang='FR' %}">Français</a>
+          </div>
+          <a
+            href="https://www.copyright.gov/what-is-copyright/"
+            class="text-reset"
+            target="_blank"
+            >Copyright ©</a
+          >
+          2021
+
+          <a
+            target="_blank"
+            class="text-reset fw-bold"
+            href="https://www.rovenma.com/"
+            >Rovenma A.Ş.</a
+          >
+          {{ navbar.footer }}.
+          <a
+            class="text-muted"
+            style="display: inline-block; float: right"
+            href="#"
+            ><i class="fas fa-chevron-up"></i
+          ></a>
+        </div>
+      </footer>
 {% endblock body %}
 <!-- onclick="document.getElementById('password1').value = sha256(document.getElementById('password1').value)" -->

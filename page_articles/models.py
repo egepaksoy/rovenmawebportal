@@ -60,10 +60,49 @@ class TimeSettingsArticles(models.Model):
     date_time_field = models.CharField(verbose_name="Date and Time (field)", max_length=25)
     server_field = models.CharField(verbose_name="Server (field)", max_length=25)
     ip_address = models.CharField(verbose_name="IP Address (field)", max_length=50)
-    timezone = models.CharField(verbose_name="Timezone", max_length=25)
+    timezone = models.CharField(verbose_name="Timezone (field)", max_length=25)
     enabled = models.CharField(verbose_name="Enabled (text)", max_length=25)
     disabled = models.CharField(verbose_name="Disabled (text)", max_length=25)
     save_text = models.CharField(verbose_name="Save (text)", max_length=25)
+
+    def __str__(self):
+        return self.lang
+
+
+class UserAdministration(models.Model):
+    lang = models.CharField(verbose_name="Language (like TR or EN)", max_length=2)
+    user_administration = models.CharField(verbose_name="User Administration (page title)", max_length=35)
+    user_create_title = models.CharField(verbose_name="User Create (title)", max_length=35)
+    user_name_surname = models.CharField(verbose_name="Name Surname (field)", max_length=35)
+    username = models.CharField(verbose_name="Username (field)", max_length=25)
+    password = models.CharField(verbose_name="Password (field)", max_length=25)
+    confirm_password = models.CharField(verbose_name="Confirm Password (field)", max_length=30)
+    authority_status = models.CharField(verbose_name="Authority Status (field)", max_length=25)
+    create_user = models.CharField(verbose_name="Create (text)", max_length=25)
+    user_settings = models.CharField(verbose_name="User Settings (title)", max_length=35)
+    delete = models.CharField(verbose_name="Delete (field)", max_length=20)
+
+    def __str__(self):
+        return self.lang
+
+
+class NavbarFooterArticles(models.Model):
+    lang = models.CharField(verbose_name="Language (like TR or EN)", max_length=2)
+    homepage = models.CharField(verbose_name="Home (link)", max_length=20)
+    system_status = models.CharField(verbose_name="System Status (dropdown)", max_length=30)
+    statistics_field = models.CharField(verbose_name="Statistics (field)", max_length=20)
+    sensors = models.CharField(verbose_name="Sensors (field)", max_length=20)
+    log_records = models.CharField(verbose_name="Log Records (field)", max_length=30)
+    system_settings = models.CharField(verbose_name="System Settings (dropdown)", max_length=30)
+    remote_access_settings = models.CharField(verbose_name="Remote Access Settings (field)", max_length=35)
+    cli_access_settings = models.CharField(verbose_name="CLI Access Settings (field)", max_length=35)
+    time_settings = models.CharField(verbose_name="Time Settings (field)", max_length=35)
+    user_settings = models.CharField(verbose_name="User Settings (dropdown)", max_length=35)
+    user_administration = models.CharField(verbose_name="User Administration (field)", max_length=30)
+    authorization = models.CharField(verbose_name="Authorization (field)", max_length=35)
+    password_changing = models.CharField(verbose_name="Password Changing (field)", max_length=35)
+    logout_link = models.CharField(verbose_name="Logout (link)", max_length=20)
+    footer = models.CharField(verbose_name="All Rights Reserved (text)", max_length=35)
 
     def __str__(self):
         return self.lang

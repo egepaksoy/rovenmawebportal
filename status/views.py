@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from page_articles.models import LogArticles
+from page_articles.models import LogArticles, NavbarFooterArticles
 
 
 
@@ -13,6 +13,7 @@ def log_view(request):
                 break
 
         articles = LogArticles.objects.get(lang=lang)
+        navbar = NavbarFooterArticles.objects.get(lang=lang)
         if request.method == "POST":
             date = request.POST.get("date")
             date_text = date[8:10] + date[5:7] + date[:4]
@@ -51,6 +52,7 @@ def log_view(request):
 
             context = {
                 "articles": articles,
+                "navbar": navbar,
                 "logs": logs[page_start:page_end],
                 "file_is_available": file_is_available,
                 "date": date,
@@ -60,7 +62,8 @@ def log_view(request):
             return render(request, "status/log.html", context)
         else:
             context = {
-                "articles": articles
+                "articles": articles,
+                "navbar": navbar
             }
             return render(request, "status/log.html", context=context)
     else:
