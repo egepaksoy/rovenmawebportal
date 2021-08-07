@@ -91,9 +91,6 @@ def login_view(request):
                 login(request, user)
                 return redirect('home')
 
-            else:
-                messages.info(request, 'Kullanıcı Adı Veya Parola Hatalı')
-
         navbar = NavbarFooterArticles.objects.get(lang="EN")
         response = render(request, "user/login.html", {"navbar": navbar})
         response.set_cookie("lang", "EN")
@@ -112,6 +109,7 @@ def home(request):
             response.set_cookie("lang", "EN")
             return response
         else:
+            response = render(request, "home.html")
             lang = "EN"
             cookie_lang = request.COOKIES.get("lang")
             for article in NavbarFooterArticles.objects.all():
@@ -119,6 +117,23 @@ def home(request):
                     lang = article.lang
                     break
             navbar = NavbarFooterArticles.objects.get(lang=lang)
-            return render(request, "home.html", {"navbar": navbar})
+            if request.COOKIES.get("lang") != "TR":
+                response.set_cookie("home", navbar.homepage)
+                response.set_cookie("status", navbar.system_status)
+                response.set_cookie("statics", navbar.statistics_field)
+                response.set_cookie("sensors", navbar.sensors)
+                response.set_cookie("log_records", navbar.log_records)
+                response.set_cookie("settings", navbar.system_settings)
+                response.set_cookie("remote_access", navbar.remote_access_settings)
+                response.set_cookie("cli_access", navbar.cli_access_settings)
+                response.set_cookie("time_settings", navbar.time_settings)
+                response.set_cookie("user_settings", navbar.user_settings)
+                response.set_cookie("user_administration", navbar.user_administration)
+                response.set_cookie("authorization", navbar.authorization)
+                response.set_cookie("password_changing", navbar.password_changing)
+                response.set_cookie("logout", navbar.logout_link)
+                response.set_cookie("all_rights", navbar.footer)
+
+            return response
     else:
         return redirect("login")
