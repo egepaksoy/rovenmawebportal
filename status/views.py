@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from page_articles.models import LogArticles, NavbarFooterArticles
+from .models import Statics
 
 
 
@@ -66,5 +67,26 @@ def log_view(request):
                 "navbar": navbar
             }
             return render(request, "status/log.html", context=context)
+    else:
+        return redirect("login")
+
+
+def statics(request):
+    if request.user.is_authenticated:
+        statics = Statics.objects.all().first()
+        if statics.memory_now > statics.memory_top:
+            statics.memory_top = statics.memory_now
+            statics.save()
+        if statics.cpu_now > statics.cpu_top:
+            statics.cpu_top = statics.cpu_now
+            statics.save()
+        if statics.ssd_now > statics.ssd_top:
+            statics.ssd_top = statics.ssd_now
+            statics.save()
+
+        context = {
+            "statics": statics
+        }
+        return render(request, "status/statics.html", context)
     else:
         return redirect("login")

@@ -11,3 +11,17 @@ class Log(models.Model):
 
     def __str__(self):
         return self.level
+
+
+class Statics(models.Model):
+    memory_top = models.IntegerField(verbose_name="Memory Top")
+    memory_now = models.IntegerField(verbose_name="Memory Now")
+    cpu_top = models.FloatField(verbose_name="CPU Top")
+    cpu_now = models.FloatField(verbose_name="CPU Now")
+    ssd_top = models.IntegerField(verbose_name="SSD Top")
+    ssd_now = models.IntegerField(verbose_name="SSD Now")
+    packet_count = models.IntegerField(verbose_name="Packet Count")
+
+    def __str__(self):
+        return "Statics Data"
+
