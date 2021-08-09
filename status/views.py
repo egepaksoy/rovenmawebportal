@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from page_articles.models import LogArticles, NavbarFooterArticles
+from page_articles.models import LogArticles, NavbarFooterArticles, StaticsArticle
 from .models import Statics
 
 
@@ -73,6 +73,16 @@ def log_view(request):
 
 def statics(request):
     if request.user.is_authenticated:
+        lang = "EN"
+        cookie_lang = request.COOKIES.get("lang")
+        for article in StaticsArticle.objects.all():
+            if cookie_lang == article.lang:
+                lang = article.lang
+                break
+
+        articles = StaticsArticle.objects.get(lang=lang)
+        navbar = NavbarFooterArticles.objects.get(lang=lang)
+
         statics = Statics.objects.all().first()
         if statics.memory_now > statics.memory_top:
             statics.memory_top = statics.memory_now
@@ -85,7 +95,9 @@ def statics(request):
             statics.save()
 
         context = {
-            "statics": statics
+            "statics": statics,
+            "articles": articles,
+            "navbar": navbar
         }
         return render(request, "status/statics.html", context)
     else:

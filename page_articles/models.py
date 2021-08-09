@@ -106,3 +106,14 @@ class NavbarFooterArticles(models.Model):
 
     def __str__(self):
         return self.lang
+
+
+class StaticsArticle(models.Model):
+    lang = models.CharField(verbose_name="Language (like TR or EN)", max_length=2)
+    package_title = models.CharField(verbose_name="Encrypted Packets (title)", max_length=25)
+    package_pcs = models.CharField(verbose_name="Pcs (field)", max_length=25)
+    package_last_packs = models.CharField(verbose_name="Number of last packs (text)", max_length=40)
+    error_text = models.CharField(verbose_name="Your Browser Does Not Support HTML5 (text)", max_length=50, default=None)
+
+    def __str__(self):
+        return self.lang
