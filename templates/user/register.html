@@ -1,0 +1,142 @@
+{% extends 'base.html' %} {% block head %}
+
+<title>{{ articles.user_administration }}</title>
+
+{% endblock head %} {% block body %}
+
+<h4 class="text text-center mt-5 mb-4">{{ articles.user_create_title }}</h4>
+<div class="m-4 kullanici-olustur">
+  <form
+    class="d-flex justify-content-center row gy-2 gx-3 align-items-center"
+    method="POST"
+    action=""
+  >
+    {% csrf_token %}
+
+    <div class="col-auto">
+      <label for="id_username" class="form-label">{{ articles.user_name_surname }}</label>
+      {{form.first_name}}
+    </div>
+
+    <div class="col-auto">
+      <label for="id_username" class="form-label">{{ articles.username }}</label>
+      {{form.username}}
+    </div>
+
+    <div class="col-auto">
+      <label for="id_password1" class="form-label">{{ articles.password }}</label>
+      {{form.password1}}
+    </div>
+
+    <div class="col-auto">
+      <label for="id_password2" class="form-label">{{ articles.confirm_password }}</label>
+      {{form.password2}}
+    </div>
+
+    <div class="col-auto">
+      <label for="usertype">{{ articles.authority_status }}</label>
+      <select
+        id="usertype"
+        class="form-select"
+        name="usertype"
+        aria-label="Default select example"
+      >
+        <option value="superuser">Super Admin</option>
+        <option value="staff">Admin</option>
+        <option value="operator" selected>Operator</option>
+      </select>
+    </div>
+    <div class="col-auto">
+      <label></label>
+      <input class="btn btn-secondary" type="submit" value="{{ articles.create_user }}" />
+    </div>
+  </form>
+  <script>
+    var form_fields = document.getElementsByTagName("input");
+    form_fields[1].placeholder = "{{ articles.user_name_surname }}";
+    form_fields[2].placeholder = "{{ articles.username }}";
+    form_fields[3].placeholder = "{{ articles.password }}";
+    form_fields[4].placeholder = "{{ articles.confirm_password }}";
+    for (var field in form_fields) {
+      form_fields[field].className += " form-control";
+    }
+  </script>
+</div>
+
+<hr class="mt-5" />
+
+<h4 class="text text-center mt-5 mb-4">{{ articles.user_settings }}</h4>
+<div class="container">
+  <table class="table" style="margin: 0 15px">
+    <thead>
+      <tr>
+        <th scope="col">{{ articles.user_name_surname }}</th>
+        <th scope="col">{{ articles.username }}</th>
+        <th scope="col">{{ articles.authority_status }}</th>
+        <th scope="col">{{ articles.delete }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for user in users %}
+      <tr>
+        <td>{{user.first_name}} {{user.last_name}}</td>
+        <td>{{user}}</td>
+
+        {% if user.is_superuser %}
+        <td>Super Admin</td>
+        {% elif user.is_staff %}
+        <td>Admin</td>
+        {% else %}
+        <td>Operator</td>
+        {% endif %}
+        <td>
+          {% if user != request.user %}
+            <form action="{% url 'delete' username=user %}" method="POST">
+              {% csrf_token %}
+              <button type="submit" class="btn btn-outline-danger">{{ articles.delete }}</button>
+            </form>
+          {% endif %}
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+
+
+<footer id="footer" class="text-center text-lg-start bg-light text-muted">
+        <div
+          class="text-center p-4"
+          style="background-color: rgba(0, 0, 0, 0.05)"
+        >
+          <div style="display: inline-block; float: left">
+            <a href="{% url 'change_lang' lang='TR' %}">Türkçe</a> |
+            <a href="{% url 'change_lang' lang='EN' %}">English</a> |
+            <a href="{% url 'change_lang' lang='FR' %}">Français</a>
+          </div>
+          <a
+            href="https://www.copyright.gov/what-is-copyright/"
+            class="text-reset"
+            target="_blank"
+            >Copyright ©</a
+          >
+          2021
+
+          <a
+            target="_blank"
+            class="text-reset fw-bold"
+            href="https://www.rovenma.com/"
+            >Rovenma A.Ş.</a
+          >
+          {{ navbar.footer }}.
+          <a
+            class="text-muted"
+            style="display: inline-block; float: right"
+            href="#"
+            ><i class="fas fa-chevron-up"></i
+          ></a>
+        </div>
+      </footer>
+{% endblock body %}
+<!-- onclick="document.getElementById('password1').value = sha256(document.getElementById('password1').value)" -->

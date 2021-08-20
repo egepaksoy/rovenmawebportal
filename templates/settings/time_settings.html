@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+{% block head %}
+<title>{{articles.title}}</title>
+<style>
+    h3 {
+      text-align: center;
+    }
+    form {
+        text-align: center;
+    }
+    .col-8 {
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .row {
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .row .left {
+        margin-left: auto;
+        margin-right: 5px;
+    }
+    .row .right {
+        margin-right: auto;
+        margin-left: 5px;
+    }
+</style>
+{% endblock head %}
+{% block body %}
+<div class="container mt-5">
+    <h3 class="text mt-3 mb-5">{{articles.title}}</h3>
+    <form method="post">
+        {% csrf_token %}
+        <div class="col-8 mt-4">
+          <label for="ntp_use" class="form-label">{{articles.ntp_enabled}}</label>
+          <select class="form-select" name="ntp_use" id="ntp_use">
+              {% if time_settings.use_ntp %}
+                <option value="True" selected>{{articles.enabled}}</option>
+                <option value="False">{{articles.disabled}}</option>
+              {% else %}
+                <option value="True">{{articles.enabled}}</option>
+                <option value="False" selected>{{articles.disabled}}</option>
+              {% endif %}
+          </select>
+        </div>
+        <div class="row mt-4" id="date_time">
+            <label for="date_time" class="form-label">{{articles.date_time_field}}</label>
+            <div class="col-4 left">
+              <input value="{{time_settings.date}}" class="form-control" type="date" name="date" id="date">
+            </div>
+            <div class="col-4 right">
+              <input value="{{time_settings.time}}" class="form-control" type="time" name="time" id="time">
+            </div>
+        </div>
+        <div class="col-8 mt-4">
+          <label for="server1" class="form-label">{{articles.server_field}}</label>
+          <input class="form-control" value="{{time_settings.server1}}" type="text" name="server1" id="server1">
+        </div>
+        <div class="col-8 mt-4">
+          <label for="ip_address1" class="form-label">{{articles.ip_address}}</label>
+          <input class="form-control" value="{{time_settings.ip_address1}}" type="text" name="ip_address1" id="ip_address1">
+        </div>
+        <div class="col-8 mt-4">
+          <label for="timezone1" class="form-label">{{articles.timezone}}</label>
+          <select class="form-select" name="timezone1" id="timezone1">
+              {% for time in times %}
+              {% if time != 0 %}
+                <option value="{{time}}">+{{time}}:00</option>
+              {% else %}
+                <option value="{{time}}">{{time}}</option>
+              {% endif %}
+              {% endfor %}
+          </select>
+        </div>
+        <div class="col-8 mt-4">
+          <label for="server2" class="form-label">{{articles.server_field}}</label>
+          <input class="form-control" value="{{time_settings.server2}}" type="text" name="server2" id="server2">
+        </div>
+        <div class="col-8 mt-4">
+          <label for="ip_address2" class="form-label">{{articles.ip_address}}</label>
+          <input class="form-control" value="{{time_settings.ip_address2}}" type="text" name="ip_address2" id="ip_address2">
+        </div>
+        <div class="col-8 mt-4 mb-4">
+          <label for="timezone2" class="form-label">{{articles.timezone}}</label>
+          <select class="form-select" name="timezone2" id="timezone2">
+              {% for time in times %}
+              {% if time != 0 %}
+                <option value="{{time}}">+{{time}}:00</option>
+              {% else %}
+                <option value="{{time}}">{{time}}</option>
+              {% endif %}
+              {% endfor %}
+          </select>
+        </div>
+        <button type="submit" style="margin-bottom: 10%;" class="btn btn-outline-success">{{articles.save_text}}</button>
+    </form>
+</div>
+
+<script>
+    document.getElementById("date").defaultValue = "{{date}}";
+    document.getElementById("time").defaultValue = "{{time}}";
+    document.getElementById('timezone1').getElementsByTagName('option')[{{time_settings.timezone1}}].selected = "selected"
+    document.getElementById('timezone2').getElementsByTagName('option')[{{time_settings.timezone2}}].selected = "selected"
+</script>
+{% endblock body %}

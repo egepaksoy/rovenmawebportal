@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% block head %}
+<title>{{articles.log_records}}</title>
+<style>
+  table {
+    text-align: center;
+  }
+</style>
+{% endblock %}
+{% block body %}
+<div class="container mt-5">
+  <h3 class="text text-center">{{articles.log_records}}</h3>
+  <form method="post" class="row">
+    {% csrf_token %}
+    <div class="col row g-3">
+      <div class="col-auto">
+        <label for="date" class="col-form-label">{{articles.log_date}}</label>
+      </div>
+      <div class="col-auto">
+        <input type="date" id="date" name="date" class="form-control">
+      </div>
+      <div class="col-auto">
+        <input type="submit" id="submit" name="submit" class="btn btn-outline-secondary" value="{{articles.search}}"/>
+      </div>
+    </div>
+<!--    Sayfa-->
+    <div class="flex-row-reverse col row align-right">
+      <div class="form-group col-auto">
+        <label for="page_number">{{articles.page}}</label>
+        <select id="page_number" name="page_number" class="form-control">
+          {% for number in page_number %}
+          <option value="{{number}}">{{number}}</option>
+          {% endfor %}
+        </select>
+      <input type="submit" value="{{articles.go}}" class="btn btn-outline-success">
+      </div>
+    </div>
+  </form>
+
+  <table class="mt-3 mb-5 table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">{{articles.level}}</th>
+        <th scope="col">{{articles.source}}</th>
+        <th scope="col">{{articles.type}}</th>
+        <th scope="col">{{articles.date}}</th>
+        <th scope="col">{{articles.time}}</th>
+        <th scope="col">{{articles.data}}</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% if file_is_available %}
+      {% for log in logs %}
+        <tr>
+          <td>{{log.level}}</td>
+          <td>{{log.source}}</td>
+          <td>{{log.type}}</td>
+          <td>{{log.date}}</td>
+          <td>{{log.time}}</td>
+          <td>{{log.data}}</td>
+        </tr>
+      {% endfor %}
+    {% else %}
+      <tr>
+        <th></th>
+        <th></th>
+        <th>{{articles.no_log}}</th>
+        <th></th>
+        <th></th>
+        <th></th>
+      </tr>
+    {% endif %}
+    </tbody>
+  </table>
+  <script>
+    document.getElementById("date").defaultValue = "{{date}}";
+    document.getElementById('page_number').getElementsByTagName('option')[{{page}}].selected = "selected";
+  </script>
+</div>
+{% endblock %}
