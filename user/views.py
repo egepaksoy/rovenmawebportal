@@ -133,6 +133,8 @@ def home(request):
                 response.set_cookie("password_changing", navbar.password_changing)
                 response.set_cookie("logout", navbar.logout_link)
                 response.set_cookie("all_rights", navbar.footer)
+            if request.COOKIES.get("lang") == "TR":
+                response.set_cookie("home", "Ana Sayfa")
 
             return response
     else:

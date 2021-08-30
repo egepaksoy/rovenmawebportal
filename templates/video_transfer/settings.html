@@ -1,0 +1,100 @@
+{% extends 'base.html' %} {% block head %}
+<title>Video Transfer Ayarları</title>
+<style>
+  h3 {
+    text-align: center;
+  }
+  .col-8 {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  button {
+    margin-left: auto;
+    margin-right: auto;
+  }
+</style>
+{% endblock head %} {% block body %}
+<div class="container mt-5">
+  <h3 class="text mt-3 mb-5">Video Transfer Ayarları</h3>
+  <form method="POST">
+    {% csrf_token %}
+    <div class="col-8">
+      <!-- IP Address -->
+      <div class="mt-4">
+        <label for="ip_address" class="form-label">udp_comm_ip_address</label>
+        <input
+          type="text"
+          class="form-control"
+          id="ip_address"
+          value="{{ general_settings.udp_comm_ip_address }}"
+          name="ip_address"
+        />
+      </div>
+      <!-- Port -->
+      <div class="mt-4">
+        <label for="port" class="form-label">udp_comm_port</label>
+        <input
+          type="text"
+          class="form-control"
+          id="port"
+          value="{{ general_settings.udp_comm_port }}"
+          name="port"
+        />
+      </div>
+      <!-- Frame Rate -->
+      <div class="mt-4">
+        <label for="frame" class="form-label">video_frame_rate</label>
+        <input
+          type="text"
+          class="form-control"
+          id="frame"
+          value="{{ general_settings.video_frame_rate }}"
+          name="frame"
+        />
+      </div>
+      <!-- Codec Type -->
+      <div class="mt-4">
+        <label for="codec" class="form-label">video_codec_type</label>
+        <!-- TODO: buraya tüm codec değerleri select olarak gelicek -->
+      </div>
+      <select class="form-select" name="codec" id="codec">
+        <option value="0">flv</option>
+        <option value="1">avi</option>
+        <option value="2">hls</option>
+        <option value="3">ogg</option>
+        <option value="4">mpeg4</option>
+        <option value="5">gif</option>
+        <option value="6">jpeg2000</option>
+        <option value="7">vpx</option>
+        <option value="8">h264</option>
+        <option value="9">h265</option>
+        <option value="10">avs2</option>
+      </select>
+      <!-- Tune -->
+      <div class="mt-4">
+        <label for="tune" class="form-label">video_tune</label>
+        <!-- TODO: buraya tüm tune değerleri select olarak gelicek -->
+        <input
+          type="text"
+          class="form-control"
+          id="tune"
+          value="{{ general_settings.video_tune }}"
+          name="tune"
+        />
+      </div>
+      <button type="submit" class="mt-4 mb-5 btn btn-outline-success">
+        Kaydet
+      </button>
+    </div>
+  </form>
+</div>
+<script>
+  document.getElementById('codec').getElementsByTagName('option')[{{ general_settings.video_codec_type }}].selected = "selected";
+  ip_address_field = document.getElementById("ip_address").value;
+  var splited_ip_address = ip_address_field.split(".")
+  if (splited_ip_address.length != 4 && splited_ip_address.length != 8) {
+    // TODO: hata mesajı gönderilcek ve veritabanına kayıt yapılmicak
+  }
+</script>
+{% endblock body %}

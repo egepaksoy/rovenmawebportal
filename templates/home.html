@@ -1,4 +1,6 @@
 {% extends 'base.html' %} {% block head %}
-<title>Ana Sayfa</title>
+
+<title>{{ request.COOKIES.home }}</title>
+  
 {% endblock head %}
 {% block body %}{% endblock body %}

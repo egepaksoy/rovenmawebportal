@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'user',
     'status',
     'settings',
-    'page_articles'
+    'page_articles',
+    'video_transfer'
 ]
 
 MIDDLEWARE = [
