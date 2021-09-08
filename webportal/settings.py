@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'status',
     'settings',
     'page_articles',
-    'video_transfer'
+    'video_transfer',
+    'ftp_settings'
 ]
 
 MIDDLEWARE = [

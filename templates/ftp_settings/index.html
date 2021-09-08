@@ -1,0 +1,221 @@
+<!-- TODO: video_trasnfer_settings dahil ondan sonraki ekranların article'ları veritabanına kaydedilcek -->
+{% extends 'base.html' %} {% block head %}
+<title>Video Transfer Ayarları</title>
+<style>
+  h3 {
+    text-align: center;
+  }
+  .col-8 {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  button {
+    margin-left: auto;
+    margin-right: auto;
+  }
+</style>
+{% endblock head %} {% block body %}
+<!-- TODO: checkboxları yan yana yazıcam -->
+<div class="container mt-5">
+  <h3 class="text mt-3 mb-5">FTP Ayarları</h3>
+  <form method="POST">
+    {% csrf_token %}
+    <div class="col-8">
+      <!-- enable_pure_db -->
+      <div class="row" style="display: inline-table">
+        <div class="mt-4">
+          <input
+            type="checkbox"
+            class="btn-check"
+            id="enable_pure_db"
+            autocomplete="off"
+            name="enable_pure_db"
+          />
+          <label class="btn btn-outline-primary" for="enable_pure_db"
+            >enable_pure_db</label
+          >
+        </div>
+        <!-- enable_pam -->
+        <div class="mt-4">
+          <input
+            type="checkbox"
+            class="btn-check"
+            id="enable_pam"
+            autocomplete="off"
+            name="enable_pam"
+          />
+          <label class="btn btn-outline-primary" for="enable_pam"
+            >enable_pam</label
+          >
+        </div>
+        <!-- enable_ssl_cert -->
+        <div class="mt-4">
+          <input
+            type="checkbox"
+            class="btn-check"
+            id="enable_ssl_cert"
+            autocomplete="off"
+            name="enable_ssl_cert"
+          />
+          <label class="btn btn-outline-primary" for="enable_ssl_cert"
+            >enable_ssl_cert</label
+          >
+        </div>
+        <!-- enable_verbose_log -->
+        <div class="mt-4">
+          <input
+            type="checkbox"
+            class="btn-check"
+            id="enable_verbose_log"
+            autocomplete="off"
+            name="enable_verbose_log"
+          />
+          <label class="btn btn-outline-primary" for="enable_verbose_log"
+            >enable_verbose_log</label
+          >
+        </div>
+        <!-- enable_no_anonymous -->
+        <div class="mt-4">
+          <input
+            type="checkbox"
+            class="btn-check"
+            id="enable_no_anonymous"
+            autocomplete="off"
+            name="enable_no_anonymous"
+          />
+          <label class="btn btn-outline-primary" for="enable_no_anonymous"
+            >enable_no_anonymous</label
+          >
+        </div>
+      </div>
+      <!-- ssl_cert_path -->
+      <div class="mt-4">
+        <label for="ssl_cert_path" class="form-label">ssl_cert_path</label>
+        <input
+          type="text"
+          class="form-control"
+          id="ssl_cert_path"
+          value="{{ ftp_settings.ssl_cert_path }}"
+          name="ssl_cert_path"
+        />
+      </div>
+      <!-- tls -->
+      <div class="mt-4">
+        <label for="tls" class="form-label">tls</label>
+        <!-- TODO: eğer burayar sadece int değerler atanıyorsa value'yi int yapıcam -->
+        <input type="text" class="form-control" id="tls" value="{{ ftp_settings.tls }}" name="tls" />
+      </div>
+      <!-- tls_cipher_suite -->
+      <div class="mt-4">
+        <label for="tls_cipher_suite" class="form-label"
+          >tls_cipher_suite</label
+        >
+        <input
+          type="text"
+          class="form-control"
+          id="tls_cipher_suite"
+          value="{{ ftp_settings.tls_chiper_suite }}"
+          name="tls_cipher_suite"
+        />
+      </div>
+
+      <!-- supported_items -->
+      <div class="mt-4">
+        <label for="supported_items" class="form-label">supported_items</label>
+        <!-- TODO: buraya tüm codec değerleri select olarak gelicek -->
+      </div>
+      <select class="form-select" name="supported_items" id="supported_items">
+        <option value="0">ftp</option>
+        <option value="1">authpriv</option>
+        <option value="2">deamon</option>
+        <option value="3">auth</option>
+        <option value="4">security</option>
+        <option value="5">user</option>
+        <option value="6">local</option>
+        <option value="None">None</option>
+      </select>
+      <!-- syslog_facility_type -->
+      <div class="mt-4">
+        <label for="syslog_facility_type" class="form-label">syslog_facility_type</label>
+        <!-- TODO: buraya tüm codec değerleri select olarak gelicek -->
+      </div>
+      <select class="form-select" name="syslog_facility_type" id="syslog_facility_type">
+        <option value="0">ftp</option>
+        <option value="1">authpriv</option>
+        <option value="2">deamon</option>
+        <option value="3">auth</option>
+        <option value="4">security</option>
+        <option value="5">user</option>
+        <option value="6">local</option>
+        <option value="None">None</option>
+      </select>
+      <!-- pure_ftp_base_path -->
+      <div class="mt-4">
+        <label for="pure_ftp_base_path" class="form-label"
+          >pure_ftp_base_path</label
+        >
+        <input
+          type="text"
+          class="form-control"
+          id="pure_ftp_base_path"
+          value="{{ ftp_settings.pure_ftp_base_path }}"
+          name="pure_ftp_base_path"
+        />
+      </div>
+      <!-- pure_ftp_config_file -->
+      <div class="mt-4">
+        <label for="pure_ftp_config_file" class="form-label"
+          >pure_ftp_config_file</label
+        >
+        <input
+          type="text"
+          class="form-control"
+          id="pure_ftp_config_file"
+          value="{{ ftp_settings.pure_ftp_config_file }}"
+          name="pure_ftp_config_file"
+        />
+      </div>
+      <!-- max_clients_number -->
+      <div class="mt-4">
+        <label for="max_clients_number" class="form-label"
+          >max_clients_number</label
+        >
+        <input
+          type="number"
+          class="form-control"
+          id="max_clients_number"
+          value="{{ ftp_settings.max_clients_number }}"
+          name="max_clients_number"
+        />
+      </div>
+      <!-- max_clients_per_ip -->
+      <div class="mt-4">
+        <label for="max_clients_per_ip" class="form-label"
+          >max_clients_per_ip</label
+        >
+        <input
+          type="number"
+          class="form-control"
+          id="max_clients_per_ip"
+          value="{{ ftp_settings.max_clients_per_ip }}"
+          name="max_clients_per_ip"
+        />
+      </div>
+
+      <button type="submit" class="mt-4 mb-5 btn btn-outline-success">
+        Kaydet
+      </button>
+    </div>
+  </form>
+</div>
+<script>
+  document.getElementById("enable_pure_db").checked = {{enable_pure_db}};
+  document.getElementById("enable_pam").checked = {{enable_pam}};
+  document.getElementById("enable_ssl_cert").checked = {{enable_ssl_cert}};
+  document.getElementById("enable_verbose_log").checked = {{enable_verbose_log}};
+  document.getElementById("enable_no_anonymous").checked = {{enable_no_anonymous}};
+  document.getElementById("supported_items").getElementsByTagName("option")[{{ftp_settings.supported_items}}].selected = "selected";
+  document.getElementById("syslog_facility_type").getElementsByTagName("option")[{{ftp_settings.syslog_facility_type}}].selected = "selected";
+</script>
+{% endblock body %}
