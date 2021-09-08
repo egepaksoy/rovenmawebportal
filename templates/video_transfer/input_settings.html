@@ -1,0 +1,141 @@
+{% extends 'base.html' %} {% block head %}
+<title>Girdi Kanalı Ayarları</title>
+<style>
+  h3 {
+    text-align: center;
+  }
+  .col-8 {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  button {
+    margin-left: auto;
+    margin-right: auto;
+  }
+</style>
+{% endblock head %} {% block body %}
+<div class="container mt-5">
+  <!-- Girdi Ayarları -->
+  <h3 class="text mt-3 mb-5">Girdi Kanalı Ayarları</h3>
+  <form method="POST" action="{% url 'save_input_settings' %}">
+    {% csrf_token %}
+    <div class="col-8">
+      <div class="mt-4">
+        <!-- Input Protocol -->
+        <label for="input_protocol" class="form-label">input_protocol</label>
+        <select
+          required
+          class="form-select"
+          name="input_protocol"
+          id="input_protocol"
+        >
+          <option value="0">rtsp</option>
+          <option value="1">rtp</option>
+          <option value="2">rtmp</option>
+          <option value="3">mpeg</option>
+          <option value="4">srt</option>
+          <option value="5">hls</option>
+        </select>
+      </div>
+      <!-- Input Url -->
+      <div class="mt-4">
+        <label for="input_url" class="form-label">input_url</label>
+        <input
+          type="url"
+          name="input_url"
+          id="input_url"
+          value="{{ input_settings.input_url }}"
+          class="form-control"
+          required
+        />
+      </div>
+      <button type="submit" class="mt-4 mb-5 btn btn-outline-success">
+        Kaydet
+      </button>
+    </div>
+  </form>
+  <!-- Çıktı Ayarları -->
+  <h3 class="text mt-5 mb-5">Çıktı Kanalı Ayarları</h3>
+  <form method="POST" action="{% url 'save_output_settings' %}">
+    {% csrf_token %}
+    <div class="col-8">
+      <!-- Output Protocol -->
+      <div class="mt-4">
+        <label for="output_protocol" class="form-label">output_protocol</label>
+        <select
+          required
+          class="form-select"
+          name="output_protocol"
+          id="output_protocol"
+        >
+          <option value="0">rtsp</option>
+          <option value="1">rtp</option>
+          <option value="2">rtmp</option>
+          <option value="3">mpeg</option>
+          <option value="4">srt</option>
+          <option value="5">hls</option>
+        </select>
+      </div>
+      <!-- Output Url -->
+      <div class="mt-4">
+        <label for="output_url" class="form-label">output_url</label>
+        <input
+          type="url"
+          name="output_url"
+          id="output_url"
+          value="{{ output_settings.output_url }}"
+          class="form-control"
+          required
+        />
+      </div>
+      <!-- Output Audio Format -->
+      <div class="mt-4">
+        <label for="output_audio_format" class="form-label"
+          >output_audio_format</label
+        >
+        <select
+          class="form-select"
+          name="output_audio_format"
+          id="output_audio_format"
+          required
+        >
+          <option value="0">vpx</option>
+          <option value="1">h264</option>
+          <option value="2">h265</option>
+          <option value="3">avs2</option>
+        </select>
+      </div>
+      <!-- Output Video Format -->
+      <div class="mt-4">
+        <label for="output_video_format" class="form-label"
+          >output_video_format</label
+        >
+        <select
+          class="form-select"
+          name="output_video_format"
+          id="output_video_format"
+          required
+        >
+          <option value="0">flv</option>
+          <option value="1">avi</option>
+          <option value="2">hls</option>
+          <option value="3">ogg</option>
+          <option value="4">mpeg4</option>
+          <option value="5">gif</option>
+          <option value="6">jpeg2000</option>
+        </select>
+      </div>
+      <button type="submit" class="mt-4 mb-5 btn btn-outline-success">
+        Kaydet
+      </button>
+    </div>
+  </form>
+</div>
+<script>
+  document.getElementById("input_protocol").getElementsByTagName("option")[{{ input_settings.input_protocol }}].selected = "selected";
+  document.getElementById("output_protocol").getElementsByTagName("option")[{{ output_settings.output_protocol }}].selected = "selected";
+  document.getElementById("output_audio_format").getElementsByTagName("option")[{{ output_settings.output_audio_format }}].selected = "selected";
+  document.getElementById("output_video_format").getElementsByTagName("option")[{{ output_settings.output_video_format }}].selected = "selected";
+</script>
+{% endblock body %}
