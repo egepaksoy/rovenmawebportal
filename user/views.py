@@ -9,12 +9,15 @@ from page_articles.models import *
 
 
 def delete_user(request, username):
+<<<<<<< HEAD
     lang = "EN"
     cookie_lang = request.COOKIES.get("lang")
     for article in RemoteAccessArticles.objects.all():
         if cookie_lang == article.lang:
             lang = article.lang
             break
+=======
+>>>>>>> aba21ce77ea5bdd24dc3655e915e89772037ce9e
     if request.method == "POST" and request.user != username:
         try:
             user = User.objects.get(username=username)
@@ -71,14 +74,22 @@ def register(request):
             "form": form,
             "articles": articles,
             "users": User.objects.all(),
+<<<<<<< HEAD
             "navbar_articles": navbar,
+=======
+            "navbar": navbar,
+>>>>>>> aba21ce77ea5bdd24dc3655e915e89772037ce9e
         }
 
         return render(request, "user/register.html", context)
 
     if request.user.is_superuser == False:
+<<<<<<< HEAD
         messages.info(
             request, "Bu alana erişmek için Super Admin olmanız gerekir.")
+=======
+        messages.info(request, "Bu alana erişmek için Super Admin olmanız gerekir.")
+>>>>>>> aba21ce77ea5bdd24dc3655e915e89772037ce9e
         return redirect("home")
 
     else:
@@ -86,6 +97,7 @@ def register(request):
 
 
 def login_view(request):
+<<<<<<< HEAD
     lang = "EN"
     cookie_lang = request.COOKIES.get("lang")
     for article in RemoteAccessArticles.objects.all():
@@ -93,6 +105,8 @@ def login_view(request):
             lang = article.lang
             break
     navbar = NavbarFooterArticles.objects.get(lang=lang)
+=======
+>>>>>>> aba21ce77ea5bdd24dc3655e915e89772037ce9e
     if request.user.is_authenticated:
         return redirect('home')
     else:
@@ -106,8 +120,12 @@ def login_view(request):
                 return redirect('home')
 
         navbar = NavbarFooterArticles.objects.get(lang="EN")
+<<<<<<< HEAD
         response = render(request, "user/login.html",
                           {"navbar_articles": navbar})
+=======
+        response = render(request, "user/login.html", {"navbar": navbar})
+>>>>>>> aba21ce77ea5bdd24dc3655e915e89772037ce9e
         response.set_cookie("lang", "EN")
         return response
 
@@ -124,6 +142,10 @@ def home(request):
             response.set_cookie("lang", "EN")
             return response
         else:
+<<<<<<< HEAD
+=======
+            response = render(request, "home.html")
+>>>>>>> aba21ce77ea5bdd24dc3655e915e89772037ce9e
             lang = "EN"
             cookie_lang = request.COOKIES.get("lang")
             for article in NavbarFooterArticles.objects.all():
@@ -131,8 +153,27 @@ def home(request):
                     lang = article.lang
                     break
             navbar = NavbarFooterArticles.objects.get(lang=lang)
+<<<<<<< HEAD
             response = render(request, "home.html", {
                               "navbar_articles": navbar})
+=======
+            if request.COOKIES.get("lang") != "TR":
+                response.set_cookie("home", navbar.homepage)
+                response.set_cookie("status", navbar.system_status)
+                response.set_cookie("statics", navbar.statistics_field)
+                response.set_cookie("sensors", navbar.sensors)
+                response.set_cookie("log_records", navbar.log_records)
+                response.set_cookie("settings", navbar.system_settings)
+                response.set_cookie("remote_access", navbar.remote_access_settings)
+                response.set_cookie("cli_access", navbar.cli_access_settings)
+                response.set_cookie("time_settings", navbar.time_settings)
+                response.set_cookie("user_settings", navbar.user_settings)
+                response.set_cookie("user_administration", navbar.user_administration)
+                response.set_cookie("authorization", navbar.authorization)
+                response.set_cookie("password_changing", navbar.password_changing)
+                response.set_cookie("logout", navbar.logout_link)
+                response.set_cookie("all_rights", navbar.footer)
+>>>>>>> aba21ce77ea5bdd24dc3655e915e89772037ce9e
 
             return response
     else:
