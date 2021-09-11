@@ -1,9 +1,17 @@
 from django.shortcuts import render, redirect
 from .models import *
+from page_articles.models import *
 
 
 def ftp_settings(request):
+    lang = "EN"
+    cookie_lang = request.COOKIES.get("lang")
+    for article in RemoteAccessArticles.objects.all():
+        if cookie_lang == article.lang:
+            lang = article.lang
+            break
     ftp_settings = Ftp_settings.objects.all().first()
+    navbar_footer = NavbarFooterArticles.objects.get(lang=lang)
     if request.method == "POST":
         if request.POST.get("enable_pure_db") == "on":
             print(request.POST.get("enable_pure_db"))
@@ -75,6 +83,7 @@ def ftp_settings(request):
             "enable_pam": enable_pam,
             "enable_ssl_cert": enable_ssl_cert,
             "enable_verbose_log": enable_verbose_log,
-            "enable_no_anonymous": enable_no_anonymous
+            "enable_no_anonymous": enable_no_anonymous,
+            "navbar_articles": navbar_footer
         }
         return render(request, "ftp_settings/index.html", context=context)

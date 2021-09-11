@@ -39,7 +39,6 @@
   <body>
     <div id="page-container">
         {% block nonavbar %}
-          {% if request.COOKIES.lang == "TR" %}
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
                 <div class="container-fluid">
                   <a href="{% url 'home' %}" class="navbar-brand fs-3" href="#">
@@ -73,7 +72,7 @@
                           class="nav-link active"
                           aria-current="page"
                           href="{% url 'home' %}"
-                          >Ana Sayfa</a
+                          >{{ navbar_articles.homepage }}</a
                         >
                       </li>
 
@@ -89,16 +88,16 @@
                             data-bs-toggle="dropdown"
                             aria-expanded="false"
                           >
-                            Sistem Durumu
+                            {{ navbar_articles.system_status }}
                           </a>
                           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <li>
-                              <a class="dropdown-item" href="{% url 'statics' %}">İstatistikler</a>
+                              <a class="dropdown-item" href="{% url 'statics' %}">{{ navbar_articles.statistics_field }}</a>
                             </li>
-                            <li><a class="dropdown-item" href="#">Sensörler</a></li>
+                            <li><a class="dropdown-item" href="#">{{ navbar_articles.sensors }}</a></li>
                             <li>
                               <a class="dropdown-item" href="{% url 'log' %}"
-                                >Log Kayıtları</a
+                                >{{ navbar_articles.log_records }}</a
                               >
                             </li>
                           </ul>
@@ -115,26 +114,26 @@
                             data-bs-toggle="dropdown"
                             aria-expanded="false"
                           >
-                            Sistem Ayarları
+                            {{ navbar_articles.system_settings}}
                           </a>
                           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <li>
                               <a
                                 class="dropdown-item"
                                 href="{% url 'remote_access' %}"
-                                >Uzaktan Erişim Ayarları</a
+                                >{{ navbar_articles.remote_access_settings }}</a
                               >
                             </li>
                             <li>
                               <a class="dropdown-item" href="{% url 'local_access' %}"
-                                >CLI Erişim Ayarları</a
+                                >{{ navbar_articles.cli_access_settings }}</a
                               >
                             </li>
                             <li>
                               <a
                                 class="dropdown-item"
                                 href="{% url 'time_settings' %}"
-                                >Zaman Ayarları</a
+                                >{{ navbar_articles.time_settings }}</a
                               >
                             </li>
                           </ul>
@@ -151,206 +150,19 @@
                             data-bs-toggle="dropdown"
                             aria-expanded="false"
                           >
-                            Kullanıcı Ayarları
+                            {{ navbar_articles.user_settings }}
                           </a>
                           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <li>
                               <a class="dropdown-item" href="{% url 'register' %}"
-                                >Kullanıcı Yönetimi</a
+                                >{{ navbar_articles.user_administration }}</a
                               >
                             </li>
                             <li>
-                              <a class="dropdown-item" href="#">Yetkilendirme</a>
+                              <a class="dropdown-item" href="#">{{ navbar_articles.authorization }}</a>
                             </li>
                             <li>
-                              <a class="dropdown-item" href="#">Şifrelendirme</a>
-                            </li>
-                          </ul>
-                        </li>
-
-                        <!-- Video Transfer -->
-
-                        <li class="nav-item dropdown">
-                          <a
-                            class="nav-link dropdown-toggle active"
-                            href="#"
-                            id="user_settings"
-                            role="button"
-                            data-bs-toggle="dropdown"
-                            aria-expanded="false"
-                          >
-                            Video Transfer Yazılımı
-                          </a>
-                          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li>
-                              <a class="dropdown-item" href="{% url 'video_transfer_settings' %}"
-                                >Genel Ayarlar</a
-                              >
-                              <a class="dropdown-item" href="{% url 'video_input' %}"
-                                >Girdi/Çıktı Kanalı Ayarları</a
-                              >
-                            </li>
-                          </ul>
-                        </li>
-
-                        <!-- FTP Ayarları -->
-
-                      <li class="nav-item">
-                        <a
-                          class="nav-link active"
-                          aria-current="page"
-                          href="{% url 'ftp_settings' %}"
-                          >FTP Ayarları</a
-                        >
-                      </li>
-
-                      </div>
-                    </ul>
-
-                    <!-- Logout -->
-
-                    <ul class="nav navbar-nav navbar-right">
-                      <li class="nav-item">
-                        <p class="nav-link active">{{request.user}}</p>
-                      </li>
-
-                      <li class="nav-item">
-                        <a
-                          class="nav-link active"
-                          aria-current="page"
-                          href="{% url 'logout' %}"
-                          >Çıkış</a
-                        >
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </nav>
-          {% else %}
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <div class="container-fluid">
-                  <a href="{% url 'home' %}" class="navbar-brand fs-3" href="#">
-                    {% load static %}
-                    <img
-                      width="60"
-                      height="50"
-                      class="d-inline-block align-text-top"
-                      src="{% static 'images/kindi.png' %}"
-                      alt="Kindi"
-                  /></a>
-                  <button
-                    class="navbar-toggler"
-                    type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent"
-                    aria-controls="navbarSupportedContent"
-                    aria-expanded="false"
-                    aria-label="Toggle navigation"
-                  >
-                    <span class="navbar-toggler-icon"></span>
-                  </button>
-                  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Menuler -->
-
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                      <!-- Ana sayfa -->
-
-                      <li class="nav-item">
-                        <a
-                          class="nav-link active"
-                          aria-current="page"
-                          href="{% url 'home' %}"
-                          >{{ request.COOKIES.home }}</a
-                        >
-                      </li>
-
-                      <div class="nav navbar-nav me-auto mb-2 mb-lg-0">
-                        <!-- Sistem Durumu -->
-
-                        <li class="nav-item dropdown">
-                          <a
-                            class="nav-link dropdown-toggle active"
-                            href="#"
-                            id="navbarDropdown"
-                            role="button"
-                            data-bs-toggle="dropdown"
-                            aria-expanded="false"
-                          >
-                            {{ request.COOKIES.status }}
-                          </a>
-                          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li>
-                              <a class="dropdown-item" href="{% url 'statics' %}">{{ request.COOKIES.statics }}</a>
-                            </li>
-                            <li><a class="dropdown-item" href="#">{{ request.COOKIES.sensors }}</a></li>
-                            <li>
-                              <a class="dropdown-item" href="{% url 'log' %}"
-                                >{{ request.COOKIES.log_records }}</a
-                              >
-                            </li>
-                          </ul>
-                        </li>
-
-                        <!-- Sistem Ayarları -->
-
-                        <li class="nav-item dropdown">
-                          <a
-                            class="nav-link dropdown-toggle active"
-                            href="#"
-                            id="system_settings"
-                            role="button"
-                            data-bs-toggle="dropdown"
-                            aria-expanded="false"
-                          >
-                            {{ request.COOKIES.settings }}
-                          </a>
-                          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li>
-                              <a
-                                class="dropdown-item"
-                                href="{% url 'remote_access' %}"
-                                >{{ request.COOKIES.remote_access }}</a
-                              >
-                            </li>
-                            <li>
-                              <a class="dropdown-item" href="{% url 'local_access' %}"
-                                >{{ request.COOKIES.cli_access }}</a
-                              >
-                            </li>
-                            <li>
-                              <a
-                                class="dropdown-item"
-                                href="{% url 'time_settings' %}"
-                                >{{ request.COOKIES.time_settings }}</a
-                              >
-                            </li>
-                          </ul>
-                        </li>
-
-                        <!-- Kullanıcı Ayarları -->
-
-                        <li class="nav-item dropdown">
-                          <a
-                            class="nav-link dropdown-toggle active"
-                            href="#"
-                            id="user_settings"
-                            role="button"
-                            data-bs-toggle="dropdown"
-                            aria-expanded="false"
-                          >
-                            {{ request.COOKIES.user_settings }}
-                          </a>
-                          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li>
-                              <a class="dropdown-item" href="{% url 'register' %}"
-                                >{{ request.COOKIES.user_administration }}</a
-                              >
-                            </li>
-                            <li>
-                              <a class="dropdown-item" href="#">{{ request.COOKIES.authorization }}</a>
-                            </li>
-                            <li>
-                              <a class="dropdown-item" href="#">{{ request.COOKIES.password_changing }}</a>
+                              <a class="dropdown-item" href="#">{{ navbar_articles.password_changing }}</a>
                             </li>
                           </ul>
                         </li>
@@ -369,14 +181,13 @@
                           class="nav-link active"
                           aria-current="page"
                           href="{% url 'logout' %}"
-                          >{{ request.COOKIES.logout }}</a
+                          >{{ navbar_articles.logout_link }}</a
                         >
                       </li>
                     </ul>
                   </div>
                 </div>
               </nav>
-          {% endif %}
         {% endblock nonavbar %}
         <div id="content-wrap">
           {% for message in messages %} {% if "info" == message.tags %}
@@ -425,41 +236,6 @@
          {% block body %} {% endblock body %}
         </div>
         {% block nofooter %}
-          {% if request.COOKIES.lang == "TR" %}
-            <footer id="footer" class="text-center text-lg-start bg-light text-muted">
-          <div
-            class="text-center p-4"
-            style="background-color: rgba(0, 0, 0, 0.05)"
-          >
-            <div style="display: inline-block; float: left">
-              <a href="{% url 'change_lang' lang='TR' %}">Türkçe</a> |
-              <a href="{% url 'change_lang' lang='EN' %}">English</a> |
-              <a href="{% url 'change_lang' lang='FR' %}">Français</a>
-            </div>
-            <a
-              href="https://www.copyright.gov/what-is-copyright/"
-              class="text-reset"
-              target="_blank"
-              >Copyright ©</a
-            >
-            2021
-
-            <a
-              target="_blank"
-              class="text-reset fw-bold"
-              href="https://www.rovenma.com/"
-              >Rovenma A.Ş.</a
-            >
-            Tüm Hakları Saklıdır.
-            <a
-              class="text-muted"
-              style="display: inline-block; float: right"
-              href="#"
-              ><i class="fas fa-chevron-up"></i
-            ></a>
-          </div>
-        </footer>
-          {% else %}
             <footer id="footer" class="text-center text-lg-start bg-light text-muted">
           <div
             class="text-center p-4"
@@ -484,7 +260,7 @@
                 href="https://www.rovenma.com/"
                 >Rovenma A.Ş.</a
               >
-              {{ request.COOKIES.all_rights }}.
+              {{ navbar_articles.footer }}.
             <a
               class="text-muted"
               style="display: inline-block; float: right"
@@ -495,7 +271,6 @@
             
           </div>
         </footer>
-          {% endif %}
         {% endblock nofooter %}
 
     <script
