@@ -3,7 +3,6 @@ from page_articles.models import LogArticles, NavbarFooterArticles, StaticsArtic
 from .models import Statics
 
 
-
 def log_view(request):
     if request.user.is_authenticated:
         lang = "EN"
@@ -35,11 +34,12 @@ def log_view(request):
                 for log_data in log_file:
                     if log_data != "":
                         log_datas = log_data.split("|")
-                        logs.append({"date": log_datas[2].split(" ")[0], "time": log_datas[2].split(" ")[1], "source": log_datas[3], "type": log_datas[4], "level": log_datas[5], "data": log_datas[6]})
+                        logs.append({"date": log_datas[2].split(" ")[0], "time": log_datas[2].split(" ")[
+                                    1], "source": log_datas[3], "type": log_datas[4], "level": log_datas[5], "data": log_datas[6]})
                 record_file.close()
             log_len = len(logs)//10
             page_number = []
-            if len(logs)%10 != 1:
+            if len(logs) % 10 != 1:
                 log_len += 1
 
             for i in range(log_len):
@@ -53,7 +53,7 @@ def log_view(request):
 
             context = {
                 "articles": articles,
-                "navbar": navbar,
+                "navbar_articles": navbar,
                 "logs": logs[page_start:page_end],
                 "file_is_available": file_is_available,
                 "date": date,
@@ -64,7 +64,7 @@ def log_view(request):
         else:
             context = {
                 "articles": articles,
-                "navbar": navbar
+                "navbar_articles": navbar
             }
             return render(request, "status/log.html", context=context)
     else:
@@ -97,7 +97,7 @@ def statics(request):
         context = {
             "statics": statics,
             "articles": articles,
-            "navbar": navbar
+            "navbar_articles": navbar
         }
         return render(request, "status/statics.html", context)
     else:

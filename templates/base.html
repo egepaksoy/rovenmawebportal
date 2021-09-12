@@ -166,9 +166,47 @@
                             </li>
                           </ul>
                         </li>
+
+                        <!-- Video Transfer Settings -->
+
+                        <li class="nav-item dropdown">
+                          <a
+                            class="nav-link dropdown-toggle active"
+                            href="#"
+                            id="video_transfer"
+                            role="button"
+                            data-bs-toggle="dropdown"
+                            aria-expanded="false"
+                          >
+                            {{ navbar_articles.video_transfer }}
+                          </a>
+                          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li>
+                              <a class="dropdown-item" href="{% url 'video_transfer_settings' %}"
+                                >{{ navbar_articles.video_transfer_settings }}</a
+                              >
+                            </li>
+                            <li>
+                              <a class="dropdown-item" href="{% url 'video_input' %}">{{ navbar_articles.input_settings }}</a>
+                            </li>
+                          </ul>
+                        </li>
+
                       </div>
+
+                    <!-- FTP Settings -->
+
+                      <li class="nav-item">
+                        <a
+                          class="nav-link active"
+                          aria-current="page"
+                          href="{% url 'ftp_settings' %}"
+                          >{{ navbar_articles.ftp_settings }}</a
+                        >
+                      </li>
                     </ul>
 
+                    
                     <!-- Logout -->
 
                     <ul class="nav navbar-nav navbar-right">
@@ -189,6 +227,11 @@
                 </div>
               </nav>
         {% endblock nonavbar %}
+
+
+        <!-- Error Messages -->
+
+
         <div id="content-wrap">
           {% for message in messages %} {% if "info" == message.tags %}
           <div
@@ -235,6 +278,11 @@
           {% endif %} {% endfor %}
          {% block body %} {% endblock body %}
         </div>
+
+        
+        <!-- FOOTER -->
+
+
         {% block nofooter %}
             <footer id="footer" class="text-center text-lg-start bg-light text-muted">
           <div

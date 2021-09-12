@@ -35,7 +35,7 @@ def remote_access_view(request):
                 enable = ""
                 disable = "selected"
 
-            return render(request, "settings/remote_access.html", {"value": values, "articles": articles, "navbar": navbar})
+            return render(request, "settings/remote_access.html", {"value": values, "articles": articles, "navbar_articles": navbar})
     else:
         return redirect("login")
 
@@ -60,7 +60,7 @@ def local_access_view(request):
 
             return redirect("local_access")
 
-        return render(request, "settings/local_access.html", {"values": values, "articles": articles, "navbar": navbar})
+        return render(request, "settings/local_access.html", {"values": values, "articles": articles, "navbar_articles": navbar})
     else:
         return redirect("login")
 
@@ -110,7 +110,7 @@ def time_settings_view(request):
                 "times": times,
                 "articles": articles,
                 "time_settings": time_setting,
-                "navbar": navbar,
+                "navbar_articles": navbar,
                 "time": hour+":"+minute,
                 "date": str(time_setting.date.year)+"-"+month+"-"+day
             }
