@@ -3,7 +3,7 @@ from .models import *
 from page_articles.models import *
 
 
-def ftp_settings(request):
+def ftp_settings_view(request):
     if request.user.is_authenticated:
         lang = "EN"
         cookie_lang = request.COOKIES.get("lang")
