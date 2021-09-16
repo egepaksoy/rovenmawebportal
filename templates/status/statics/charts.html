@@ -1,0 +1,92 @@
+{% extends 'base.html' %} {% block head %}
+<script>
+  window.onload = function () {
+    var memory = {{ statics.memory_now }}*100/{{ statics.memory_top }}
+    var cpu = {{ statics.cpu_now }}*100/{{ statics.cpu_top }}
+    var ssd = {{ statics.ssd_now }}*100/{{ statics.ssd_top }}
+
+    CanvasJS.addColorSet("kindiTheme", ["#014E8F", "#cecece"]);
+
+    var ssdChart = new CanvasJS.Chart("ssd_chart", {
+      animationEnabled: true,
+      title: {
+        text: "SSD percent",
+      },
+      data: [
+        {
+          type: "pie",
+          startAngle: 240,
+          ValueFormatString: '##0.00"%"',
+          indexLabel: "{label} {y}",
+          dataPoints: [
+            { y: ssd, label: "Usage", color: "#014E8F" },
+            { y: 100 - ssd, label: "Free", color: "#cecece" },
+          ],
+        },
+      ],
+    });
+
+    var cpuChart = new CanvasJS.Chart("cpu_chart", {
+      animationEnabled: true,
+      title: {
+        text: "CPU percent",
+      },
+      data: [
+        {
+          type: "pie",
+          startAngle: 240,
+          colorSet: "kindiTheme",
+          ValueFormatString: '##0.00"%"',
+          indexLabel: "{label} {y}",
+          dataPoints: [
+            { y: cpu, label: "Usage", color: "#014E8F" },
+            { y: 100 - cpu, label: "Free", color: "#cecece" },
+          ],
+        },
+      ],
+    });
+
+    var memoryChart = new CanvasJS.Chart("memory_chart", {
+      animationEnabled: true,
+      title: {
+        text: "Memory percent",
+      },
+      data: [
+        {
+          type: "pie",
+          startAngle: 240,
+          colorSet: "colorsetDef",
+          yValueFormatString: '##0.00"%"',
+          indexLabel: "{label} {y}",
+          dataPoints: [
+            { y: memory, label: "Usage", color: "#014E8F" },
+            { y: 100 - memory, label: "Free", color: "#cecece" },
+          ],
+        },
+      ],
+    });
+
+
+    memoryChart.render();
+    cpuChart.render();
+    ssdChart.render();
+  };
+</script>
+
+{% endblock head %} {% block body %}
+<div id="piecharts" class="row mt-5" style="width: 100%; height: 20%">
+  <div
+    id="memory_chart"
+    style="margin-left: auto; margin-right: auto; height: auto; width: 30%"
+  ></div>
+  <div
+    id="ssd_chart"
+    style="margin-left: auto; margin-right: auto; height: auto; width: 30%"
+  ></div>
+  <div
+    id="cpu_chart"
+    style="margin-left: auto; margin-right: auto; height: auto; width: 30%"
+  ></div>
+</div>
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+{% endblock body %}

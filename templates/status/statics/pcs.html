@@ -1,0 +1,40 @@
+{% extends 'base.html' %} {% block head %}
+<title>Paket Adedleri</title>
+<style>
+  #container-card {
+    width: 350px;
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
+  }
+</style>
+{% endblock head %} {% block body %}
+
+<div class="row mt-5">
+  {% for packet in pcs %}
+  <div class="card text-center bg-secondary text-light" id="container-card">
+    <div class="card-body">
+      <h5
+        class="card-title"
+        style="
+          text-align: start;
+          opacity: 0.8;
+          font-style: italic;
+          font-size: 30px;
+        "
+      >
+        <!-- TODO: bu title db'den gelicek -->
+        {{ packet.title }}
+      </h5>
+      <p
+        class="card-text"
+        style="text-align: end; opacity: 0.7; font-size: 20px"
+      >
+        <!-- TODO: 24 db'den gelicek -->
+        {{ packet.pcs }}
+      </p>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endblock body %}

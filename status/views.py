@@ -99,6 +99,25 @@ def statics(request):
             "articles": articles,
             "navbar_articles": navbar
         }
-        return render(request, "status/statics.html", context)
+        return render(request, "status/statics/charts.html", context)
     else:
         return redirect("login")
+
+
+def packets(request):
+    if request.user.is_authenticated:
+        lang = "EN"
+        cookie_lang = request.COOKIES.get("lang")
+        for article in StaticsArticle.objects.all():
+            if cookie_lang == article.lang:
+                lang = article.lang
+                break
+
+        navbar = NavbarFooterArticles.objects.get(lang=lang)
+
+        context = {
+            "navbar_articles": navbar,
+            "pcs": [{"title": "Yönetim Portu Gelen Trafik", "pcs": 24}, {"title": "Yönetim Portu Giden Trafik", "pcs": 42}, {"title": "Tek Yönlü Port Gelen Trafik", "pcs": 5}, {"title": "Tek Yönlü Port Giden Trafik", "pcs": 24}]
+        }
+
+        return render(request, "status/statics/pcs.html", context)
