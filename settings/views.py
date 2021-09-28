@@ -51,11 +51,21 @@ def local_access_view(request):
         articles = LocalAccessArticles.objects.get(lang=lang)
         navbar = NavbarFooterArticles.objects.get(lang=lang)
         values = LocalAccessSettings.objects.all().first()
+
         if request.method == "POST":
-            values.baud_rate = request.POST.get("baud_rate")
-            values.data_bits = request.POST.get("data_bits")
-            values.stop_bits = request.POST.get("stop_bits")
-            values.parity = request.POST.get("parity")
+            if request.POST.get("open_cli") != "on":
+                values.baud_rate = request.POST.get("baud_rate")
+                values.data_bits = request.POST.get("data_bits")
+                values.stop_bits = request.POST.get("stop_bits")
+                values.parity = request.POST.get("parity")
+                
+                if request.POST.get("open_cli") == "on":
+                    values.open_cli = True
+                else:
+                    values.open_cli = False
+            else:
+                    values.open_cli = True
+
             values.save()
 
             return redirect("local_access")

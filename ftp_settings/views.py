@@ -15,7 +15,6 @@ def ftp_settings_view(request):
         navbar_footer = NavbarFooterArticles.objects.get(lang=lang)
         if request.method == "POST":
             if request.POST.get("enable_pure_db") == "on":
-                print(request.POST.get("enable_pure_db"))
                 enable_pure_db = True
             else:
                 enable_pure_db = False

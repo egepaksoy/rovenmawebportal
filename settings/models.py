@@ -20,6 +20,7 @@ class LocalAccessSettings(models.Model):
     data_bits = models.IntegerField(verbose_name="Data Bits")
     stop_bits = models.IntegerField(verbose_name="Stop Bits")
     parity = models.CharField(verbose_name="Parity Field", max_length=50)
+    open_cli = models.BooleanField(verbose_name="Open CLI", default=None)
 
     def __str__(self):
         return "LocalAddressSettings"
