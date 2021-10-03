@@ -67,6 +67,8 @@ class LocalAccessArticles(models.Model):
     parity_text = models.CharField(
         verbose_name="Parity (field)", max_length=50)
     now_text = models.CharField(verbose_name="Now", max_length=25)
+    open_cli_access_switch = models.CharField(verbose_name="Open CLI Access (switch)", max_length=20, default=None)
+    open_cli_access_info_text = models.CharField(verbose_name="Open CLI Access (info text)", max_length=70, default=None)
     save_text = models.CharField(verbose_name="Save (text)", max_length=25)
 
     def __str__(self):

@@ -24,12 +24,12 @@
       <input class="form-check-input" type="checkbox" name="open_cli" id="opened-cli" />
       {% if values.open_cli == False %}
       <!-- TODO: Alttaki yazı veritabanından gelicek -->
-        <label class="form-check-label" for="opened-cli">Open CLI Access</label>
+        <label class="form-check-label" for="opened-cli">{{ articles.open_cli_access_switch }}</label>
       {% endif %}
     </div>
-    
+
     {% if values.open_cli %}
-      
+
     <div class="col-8 mt-4">
       <label for="baud_rate" class="form-label"
         >Baud Rate ({{articles.now_text}}: {{values.baud_rate}})</label
@@ -90,7 +90,7 @@
 
     {% else %}
       <!-- TODO: Alttaki dillere göre veritabanından gelicek -->
-      <h4 class="text mb-5">Eğer CLI Ayarlarını değiştirmek istiyorsanız yukarıdaki switch'i aktif etmeniz gerekli</h4>
+      <h4 class="text mb-5">{{ articles.open_cli_access_info_text }}</h4>
 
     {% endif %}
 
