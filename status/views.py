@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
-from page_articles.models import LogArticles, NavbarFooterArticles, StaticsArticle
-from .models import Statics
+from page_articles.models import LogArticles, NavbarFooterArticles, StaticsArticle, PacketsTitles
+from .models import *
 
 
 def log_view(request):
@@ -114,13 +114,15 @@ def packets(request):
                 break
 
         navbar = NavbarFooterArticles.objects.get(lang=lang)
+        packetsTitle = PacketsTitles.objects.get(lang=lang)
 
-        pcs = [{"title": "Yönetim Portu Gelen Trafik", "pcs": 24}, {"title": "Yönetim Portu Giden Trafik", "pcs": 42}, {"title": "Tek Yönlü Port Gelen Trafik", "pcs": 5}, {"title": "Tek Yönlü Port Giden Trafik", "pcs": 55}]
+        pcs = Packets.objects.all().first()
+        print(packetsTitle.management_port_incoming)
 
         context = {
             "navbar_articles": navbar,
-            "pcs1": pcs[:2],
-            "pcs2": pcs[2:]
+            "pcs1": [{"title": packetsTitle.management_port_incoming, "pcs": pcs.management_port_incoming}, {"title": packetsTitle.management_port_outgoing,"pcs":pcs.management_port_outgoing}],
+            "pcs2": [{"title": packetsTitle.one_way_port_incoming, "pcs": pcs.one_way_port_incoming}, {"title": packetsTitle.one_way_port_outgoing, "pcs":pcs.one_way_port_outgoing}]
         }
 
         return render(request, "status/statics/pcs.html", context)

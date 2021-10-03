@@ -175,3 +175,14 @@ class StaticsArticle(models.Model):
 
     def __str__(self):
         return self.lang
+
+
+class PacketsTitles(models.Model):
+    lang = models.CharField(verbose_name="Language (like TR or EN)", max_length=2)
+    management_port_incoming = models.CharField(verbose_name="Management Port Incoming (title)", max_length=30)
+    management_port_outgoing = models.CharField(verbose_name="Management Port Outgoing (title)", max_length=30)
+    one_way_port_incoming = models.CharField(verbose_name="One Way Port Incoming (title)", max_length=30)
+    one_way_port_outgoing = models.CharField(verbose_name="One Way Port Outgoing (title)", max_length=30)
+
+    def __str__(self):
+        return self.lang

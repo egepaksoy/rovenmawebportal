@@ -30,5 +30,6 @@ class Packets(models.Model):
     one_way_port_incoming = models.IntegerField(verbose_name="One Way Port Incoming")
     one_way_port_outgoing = models.IntegerField(verbose_name="One Way Port Ourgoing")
 
+
     def __str__(self):
         return "Pakcets"
