@@ -20,8 +20,15 @@ class Statics(models.Model):
     cpu_now = models.FloatField(verbose_name="CPU Now")
     ssd_top = models.IntegerField(verbose_name="SSD Top")
     ssd_now = models.IntegerField(verbose_name="SSD Now")
-    packet_count = models.IntegerField(verbose_name="Packet Count")
 
     def __str__(self):
         return "Statics Data"
 
+class Packets(models.Model):
+    management_port_incoming = models.IntegerField(verbose_name="Management Port Incoming")
+    management_port_outgoing = models.IntegerField(verbose_name="Management Port Outgoing")
+    one_way_port_incoming = models.IntegerField(verbose_name="One Way Port Incoming")
+    one_way_port_outgoing = models.IntegerField(verbose_name="One Way Port Ourgoing")
+
+    def __str__(self):
+        return "Pakcets"

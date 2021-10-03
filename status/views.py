@@ -114,9 +114,9 @@ def packets(request):
                 break
 
         navbar = NavbarFooterArticles.objects.get(lang=lang)
-        
+
         pcs = [{"title": "Yönetim Portu Gelen Trafik", "pcs": 24}, {"title": "Yönetim Portu Giden Trafik", "pcs": 42}, {"title": "Tek Yönlü Port Gelen Trafik", "pcs": 5}, {"title": "Tek Yönlü Port Giden Trafik", "pcs": 55}]
-        
+
         context = {
             "navbar_articles": navbar,
             "pcs1": pcs[:2],
