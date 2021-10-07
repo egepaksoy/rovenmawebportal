@@ -8,6 +8,38 @@ from django.contrib.auth.decorators import login_required
 from page_articles.models import *
 
 
+def pass_change(request, username):
+    lang = "EN"
+    cookie_lang = request.COOKIES.get("lang")
+    for article in RemoteAccessArticles.objects.all():
+        if cookie_lang == article.lang:
+            lang = article.lang
+            break
+
+    navbar = NavbarFooterArticles.objects.get(lang=lang)
+
+    context = {
+        "navbar_articles": navbar,
+    }
+
+    if request.method == "POST":
+        passwd1 = request.POST.get("passwd")
+        passwd2 = request.POST.get("passwd2")
+
+        if passwd1 == passwd2:
+            usr = User.objects.get(username=username)
+            usr.set_password(passwd1)
+            usr.save()
+            messages.success(request, "şifre değiştirildi: " + username)
+
+        else:
+            messages.info(request, "girilen şifreler farklı")
+
+
+        return redirect('pass_change', username=username)
+
+    return render(request, 'user/change-password.html', context)
+
 def delete_user(request, username):
     lang = "EN"
     cookie_lang = request.COOKIES.get("lang")
@@ -19,7 +51,6 @@ def delete_user(request, username):
         try:
             user = User.objects.get(username=username)
             user.delete()
-            print("kullanıcı silindi")
             messages.success(request, "Kullanıcı Silindi: " + username)
 
         except User.DoesNotExist:

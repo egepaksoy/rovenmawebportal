@@ -66,13 +66,14 @@
 <hr class="mt-5" />
 
 <h4 class="text text-center mt-5 mb-4">{{ articles.user_settings }}</h4>
-<div class="container">
+<div class="container mb-5">
   <table class="table" style="margin: 0 15px">
     <thead>
       <tr>
         <th scope="col">{{ articles.user_name_surname }}</th>
         <th scope="col">{{ articles.username }}</th>
         <th scope="col">{{ articles.authority_status }}</th>
+        <th scope="col"><!-- TODO: Buraya veritabanından article gelicek -->Change Password</th>
         <th scope="col">{{ articles.delete }}</th>
       </tr>
     </thead>
@@ -90,6 +91,9 @@
         <td>Operator</td>
         {% endif %}
         <td>
+          <a href="../change-password/{{ user }}/" class="btn btn-outline-secondary">Change Password</a>
+        </td>
+        <td>
           {% if user != request.user %}
             <form action="{% url 'delete' username=user %}" method="POST">
               {% csrf_token %}
@@ -102,41 +106,5 @@
     </tbody>
   </table>
 </div>
-
-
-
-<footer id="footer" class="text-center text-lg-start bg-light text-muted">
-        <div
-          class="text-center p-4"
-          style="background-color: rgba(0, 0, 0, 0.05)"
-        >
-          <div style="display: inline-block; float: left">
-            <a href="{% url 'change_lang' lang='TR' %}">Türkçe</a> |
-            <a href="{% url 'change_lang' lang='EN' %}">English</a> |
-            <a href="{% url 'change_lang' lang='FR' %}">Français</a>
-          </div>
-          <a
-            href="https://www.copyright.gov/what-is-copyright/"
-            class="text-reset"
-            target="_blank"
-            >Copyright ©</a
-          >
-          2021
-
-          <a
-            target="_blank"
-            class="text-reset fw-bold"
-            href="https://www.rovenma.com/"
-            >Rovenma A.Ş.</a
-          >
-          {{ navbar.footer }}.
-          <a
-            class="text-muted"
-            style="display: inline-block; float: right"
-            href="#"
-            ><i class="fas fa-chevron-up"></i
-          ></a>
-        </div>
-      </footer>
 {% endblock body %}
 <!-- onclick="document.getElementById('password1').value = sha256(document.getElementById('password1').value)" -->
