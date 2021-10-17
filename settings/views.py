@@ -96,10 +96,7 @@ def time_settings_view(request):
             time_setting.time = request.POST.get("time")
             time_setting.date = request.POST.get("date")
             time_setting.server1 = request.POST.get("server1")
-            time_setting.ip_address1 = request.POST.get("ip_address1")
-            time_setting.timezone1 = request.POST.get("timezone1")
             time_setting.server2 = request.POST.get("server2")
-            time_setting.ip_address2 = request.POST.get("ip_address2")
             time_setting.timezone2 = request.POST.get("timezone2")
             time_setting.save()
             return redirect("time_settings")
@@ -124,7 +121,6 @@ def time_settings_view(request):
                 "time": hour+":"+minute,
                 "date": str(time_setting.date.year)+"-"+month+"-"+day
             }
-
             return render(request, "settings/time_settings.html", context=context)
     else:
         return redirect("login")

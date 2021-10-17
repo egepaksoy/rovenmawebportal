@@ -46,39 +46,19 @@
         <div class="row mt-4" id="date_time">
             <label for="date_time" class="form-label">{{articles.date_time_field}}</label>
             <div class="col-4 left">
-              <input value="{{time_settings.date}}" class="form-control" type="date" name="date" id="date">
+              <input class="form-control " type="date" name="date" id="date">
             </div>
             <div class="col-4 right">
-              <input value="{{time_settings.time}}" class="form-control" type="time" name="time" id="time">
+              <input class="form-control" type="time" name="time" id="time">
             </div>
         </div>
         <div class="col-8 mt-4">
-          <label for="server1" class="form-label">{{articles.server_field}}</label>
+          <label for="server1" class="form-label">{{articles.server_field}} 1</label>
           <input class="form-control" value="{{time_settings.server1}}" type="text" name="server1" id="server1">
         </div>
         <div class="col-8 mt-4">
-          <label for="ip_address1" class="form-label">{{articles.ip_address}}</label>
-          <input class="form-control" value="{{time_settings.ip_address1}}" type="text" name="ip_address1" id="ip_address1">
-        </div>
-        <div class="col-8 mt-4">
-          <label for="timezone1" class="form-label">{{articles.timezone}}</label>
-          <select class="form-select" name="timezone1" id="timezone1">
-              {% for time in times %}
-              {% if time != 0 %}
-                <option value="{{time}}">+{{time}}:00</option>
-              {% else %}
-                <option value="{{time}}">{{time}}</option>
-              {% endif %}
-              {% endfor %}
-          </select>
-        </div>
-        <div class="col-8 mt-4">
-          <label for="server2" class="form-label">{{articles.server_field}}</label>
+          <label for="server2" class="form-label">{{articles.server_field}} 2</label>
           <input class="form-control" value="{{time_settings.server2}}" type="text" name="server2" id="server2">
-        </div>
-        <div class="col-8 mt-4">
-          <label for="ip_address2" class="form-label">{{articles.ip_address}}</label>
-          <input class="form-control" value="{{time_settings.ip_address2}}" type="text" name="ip_address2" id="ip_address2">
         </div>
         <div class="col-8 mt-4 mb-4">
           <label for="timezone2" class="form-label">{{articles.timezone}}</label>
@@ -97,9 +77,36 @@
 </div>
 
 <script>
-    document.getElementById("date").defaultValue = "{{date}}";
-    document.getElementById("time").defaultValue = "{{time}}";
-    document.getElementById('timezone1').getElementsByTagName('option')[{{time_settings.timezone1}}].selected = "selected"
+    const datefield = document.getElementById("date");
+    const timefield = document.getElementById("time");
+    const ntp_use = document.getElementById("ntp_use");
+    const server1 = document.getElementById('server1');
+    const server2 = document.getElementById('server2');
+
+    var date = "{{date}}";
+    var time = "{{time}}"
+
+    if (ntp_use.value === "True") {
+      datefield.readOnly = true;
+      timefield.readOnly = true;
+      datefield.defaultValue = "2021-10-17"
+      timefield.defaultValue = "11:09"
+
+    } else {
+      datefield.readOnly = false;
+      timefield.readOnly = false;
+      datefield.defaultValue = date;
+      timefield.defaultValue = time;
+    }
+
+    if (ntp_use.value === "True") {
+      server1.readOnly = false;
+      server2.readOnly = false;
+    } else {
+      server1.readOnly = true;
+      server2.readOnly = true;
+    }
+
     document.getElementById('timezone2').getElementsByTagName('option')[{{time_settings.timezone2}}].selected = "selected"
 </script>
 {% endblock body %}
