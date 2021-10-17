@@ -23,7 +23,6 @@
     <div class="form-check form-switch mb-5">
       <input class="form-check-input" type="checkbox" name="open_cli" id="opened-cli" />
       {% if values.open_cli == False %}
-      <!-- TODO: Alttaki yazı veritabanından gelicek -->
         <label class="form-check-label" for="opened-cli">{{ articles.open_cli_access_switch }}</label>
       {% endif %}
     </div>
@@ -89,7 +88,6 @@
     </div>
 
     {% else %}
-      <!-- TODO: Alttaki dillere göre veritabanından gelicek -->
       <h4 class="text mb-5">{{ articles.open_cli_access_info_text }}</h4>
 
     {% endif %}

@@ -61,7 +61,6 @@ class OutputSettings(models.Model):
     ("2", "h265"),
     ("3", "avs2")
   ]
-  # TODO: video ve audio formatları düzeltilcek
   output_protocol = models.CharField(verbose_name="output_protocol", max_length=5, choices=protocols)
   output_url = models.CharField(verbose_name="output_url", max_length=30)
   output_audio_format = models.CharField(verbose_name="output_audio_format", max_length=5, choices=audio_format)

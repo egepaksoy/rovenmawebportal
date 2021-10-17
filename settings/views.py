@@ -3,7 +3,6 @@ from .models import *
 from page_articles.models import RemoteAccessArticles, LocalAccessArticles, TimeSettingsArticles, NavbarFooterArticles
 
 
-# TODO: yanlarda küçük yardım balonları olucak
 def remote_access_view(request):
     if request.user.is_authenticated:
         lang = "EN"
