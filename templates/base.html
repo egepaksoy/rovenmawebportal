@@ -232,9 +232,9 @@
         <div id="content-wrap">
           {% for message in messages %} {% if "info" == message.tags %}
           <div
-            style="width: 300px"
+            style="width: 300px; z-index: 5;"
             class="
-              position-absolute
+              position-fixed
               bottom-0
               end-0
               alert alert-warning alert-dismissible
@@ -253,9 +253,9 @@
           </div>
           {% elif "success" in message.tags %}
           <div
-            style="width: 300px"
+            style="width: 300px; z-index: 5"
             class="
-              position-absolute
+              position-fixed
               bottom-0
               end-0
               alert alert-success alert-dismissible

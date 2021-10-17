@@ -32,11 +32,12 @@ def pass_change(request, username):
             usr.save()
             messages.success(request, "şifre değiştirildi: " + username)
 
+            return redirect('register')
+
         else:
             messages.info(request, "girilen şifreler farklı")
 
-
-        return redirect('pass_change', username=username)
+            return redirect('pass_change', username=username)
 
     return render(request, 'user/change-password.html', context)
 
