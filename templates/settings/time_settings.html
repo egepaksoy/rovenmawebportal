@@ -61,8 +61,8 @@
           <input class="form-control" value="{{time_settings.server2}}" type="text" name="server2" id="server2">
         </div>
         <div class="col-8 mt-4 mb-4">
-          <label for="timezone2" class="form-label">{{articles.timezone}}</label>
-          <select class="form-select" name="timezone2" id="timezone2">
+          <label for="timezone" class="form-label">{{articles.timezone}}</label>
+          <select class="form-select" name="timezone" id="timezone">
               {% for time in times %}
               {% if time != 0 %}
                 <option value="{{time}}">+{{time}}:00</option>
@@ -107,6 +107,6 @@
       server2.readOnly = true;
     }
 
-    document.getElementById('timezone2').getElementsByTagName('option')[{{time_settings.timezone2}}].selected = "selected"
+    document.getElementById('timezone').getElementsByTagName('option')[{{time_settings.timezone}}].selected = "selected"
 </script>
 {% endblock body %}

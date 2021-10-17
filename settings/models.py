@@ -59,11 +59,8 @@ class TimeSettings(models.Model):
     date = models.DateField(verbose_name="Date")
     time = models.TimeField(verbose_name="Time")
     server1 = models.CharField(verbose_name="Server 1", max_length=200)
-    ip_address1 = models.CharField(verbose_name="IP Address 1", max_length=15)
-    timezone1 = models.CharField(verbose_name="Timezone 1", max_length=2, choices=TIMEZONES, default=0)
     server2 = models.CharField(verbose_name="Server 2", max_length=200)
-    ip_address2 = models.CharField(verbose_name="IP Address 2", max_length=15)
-    timezone2 = models.CharField(verbose_name="Timezone 2", max_length=2, choices=TIMEZONES, default=0)
+    timezone = models.CharField(verbose_name="Timezone", max_length=2, choices=TIMEZONES, default=0)
 
     def __str__(self):
         return "TimeSettings"
