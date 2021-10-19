@@ -48,6 +48,7 @@ class RemoteAccessArticles(models.Model):
         verbose_name="Save (text)", max_length=25, default=None)
     enabled = models.CharField(verbose_name="Enabled (text)", max_length=25)
     disabled = models.CharField(verbose_name="Disabled (text)", max_length=25)
+    open_remote = models.CharField(verbose_name="Open Remote Access", max_length=25, null=False, default=None)
 
     def __str__(self):
         return self.lang

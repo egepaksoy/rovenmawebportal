@@ -14,15 +14,23 @@ def remote_access_view(request):
         articles = RemoteAccessArticles.objects.get(lang=lang)
         navbar = NavbarFooterArticles.objects.get(lang=lang)
         values = RemoteAccessSettings.objects.all().first()
+
         if request.method == "POST":
-            values.dhcp_enabled = request.POST.get("dhcp_setting")
-            values.ip_address = request.POST.get("ip_address")
-            values.port = request.POST.get("port")
-            values.subnet_mask = request.POST.get("subnet_mask")
-            values.broadcast_address = request.POST.get("broadcast_address")
-            values.gateway_address = request.POST.get("gateway_address")
-            values.dns_address = request.POST.get("dns_address")
-            values.dhcp_address = request.POST.get("dhcp_address")
+            print(request.POST.get("open_remote"))
+            if request.POST.get("open_remote") != "on":
+                values.open_remote = False
+                values.dhcp_enabled = request.POST.get("dhcp_setting")
+                values.ip_address = request.POST.get("ip_address")
+                values.port = request.POST.get("port")
+                values.subnet_mask = request.POST.get("subnet_mask")
+                values.broadcast_address = request.POST.get("broadcast_address")
+                values.gateway_address = request.POST.get("gateway_address")
+                values.dns_address = request.POST.get("dns_address")
+                values.dhcp_address = request.POST.get("dhcp_address")
+
+            else:
+                values.open_remote = True
+
             values.save()
 
             return redirect("remote_access")
@@ -34,7 +42,13 @@ def remote_access_view(request):
                 enable = ""
                 disable = "selected"
 
-            return render(request, "settings/remote_access.html", {"value": values, "articles": articles, "navbar_articles": navbar})
+            context = {
+                "value": values,
+                "articles": articles,
+                "navbar_articles": navbar,
+            }
+
+            return render(request, "settings/remote_access.html", context=context)
     else:
         return redirect("login")
 

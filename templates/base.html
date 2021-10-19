@@ -100,6 +100,11 @@
                                 >{{ navbar_articles.log_records }}</a
                               >
                             </li>
+                            <li>
+                              <a class="dropdown-item" href="{% url 'sensors' %}"
+                                >SENSORLER</a
+                              >
+                            </li>
                           </ul>
                         </li>
 
@@ -288,8 +293,7 @@
           >
             <div style="display: inline-block; float: left;">
               <a href="{% url 'change_lang' lang='TR' %}">Türkçe</a> |
-              <a href="{% url 'change_lang' lang='EN' %}">English</a> |
-              <a href="{% url 'change_lang' lang='FR' %}">Français</a>
+              <a href="{% url 'change_lang' lang='EN' %}">English</a>
             </div>
             <div style="text-align: center;">
               <a

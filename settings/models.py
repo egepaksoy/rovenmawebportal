@@ -10,6 +10,7 @@ class RemoteAccessSettings(models.Model):
     gateway_address = models.GenericIPAddressField(verbose_name="Gateway Address")
     dns_address = models.GenericIPAddressField(verbose_name="DNS Address")
     dhcp_address = models.GenericIPAddressField(verbose_name="DHCP Address")
+    open_remote = models.BooleanField(verbose_name="Enable Remote Access", default=None, null=False)
 
     def __str__(self):
         return "RemoteAccessSettings"
