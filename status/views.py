@@ -1,7 +1,28 @@
 from django.shortcuts import render, redirect
-from page_articles.models import LogArticles, NavbarFooterArticles, StaticsArticle, PacketsTitles
+from page_articles.models import LogArticles, NavbarFooterArticles, StaticsArticle, PacketsTitles, Sensor
 from .models import *
 
+
+def sensors(request):
+    if request.user.is_authenticated:
+        sensors = Sensors.objects.all().first()
+        lang = "EN"
+        cookie_lang = request.COOKIES.get("lang")
+        for article in LogArticles.objects.all():
+            if cookie_lang == article.lang:
+                lang = article.lang
+                break
+
+        articles = Sensor.objects.get(lang=lang)
+        navbar = NavbarFooterArticles.objects.get(lang=lang)
+
+        context = {
+            "articles": articles,
+            "navbar_articles": navbar,
+            "sensors": sensors,
+        }
+
+        return render(request, "status/sensors.html", context=context)
 
 def log_view(request):
     if request.user.is_authenticated:

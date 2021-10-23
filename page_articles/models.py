@@ -1,6 +1,17 @@
 from django.db import models
 
 
+class Sensor(models.Model):
+    lang = models.CharField(
+        verbose_name="Language (like TR or EN)", max_length=2)
+    transmitter_temprature = models.CharField(verbose_name="Transmitter Temprature", max_length=50)
+    reciever_temprature = models.CharField(verbose_name="Reciever Temprature", max_length=50)
+    case_sensor = models.CharField(verbose_name="Case Sensor", max_length=30)
+
+    def __str__(self):
+        return self.lang
+
+
 class LogArticles(models.Model):
     lang = models.CharField(
         verbose_name="Language (like TR or EN)", max_length=2)

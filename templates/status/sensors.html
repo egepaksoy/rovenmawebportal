@@ -1,0 +1,104 @@
+{% extends 'base.html' %} {% block head %}
+<title>SENSORS</title>
+<style>
+  body {
+    overflow: hidden;
+  }
+
+  .pcs1,
+  .pcs2 {
+    flex-direction: row;
+    justify-content: space-around;
+  }
+</style>
+{% endblock head %} {% block body %}
+
+<div style="margin: 10%;">
+  <div class="pcs1 row mt-5 mb-5">
+    <div
+      class="card text-center bg-secondary text-light"
+      style="width: 20%"
+      id="container-card"
+    >
+      <div class="card-body">
+        <h5
+          class="card-title"
+          style="
+            text-align: start;
+            opacity: 0.7;
+            font-style: italic;
+            font-size: 32px;
+          "
+        >
+          {{ sensors.transmitter_temprature }} °C
+        </h5>
+        <p
+          class="card-text"
+          style="text-align: end; opacity: 0.6; font-size: 22px"
+        >
+          {{ articles.transmitter_temprature }}
+        </p>
+      </div>
+    </div>
+    <!-- İkinci kart -->
+    <div
+      class="card text-center bg-secondary text-light"
+      style="width: 20%"
+      id="container-card"
+    >
+      <div class="card-body">
+        <h5
+          class="card-title"
+          style="
+            text-align: start;
+            opacity: 0.7;
+            font-style: italic;
+            font-size: 32px;
+          "
+        >
+          {{ sensors.reciever_temprature }} °C
+        </h5>
+        <p
+          class="card-text"
+          style="text-align: end; opacity: 0.6; font-size: 22px"
+        >
+          {{ articles.reciever_temprature }}
+        </p>
+      </div>
+    </div>
+
+    <!-- Üçuncu kart -->
+    <div
+      {% if sensors.case_sensor %}
+        class="card text-center bg-success text-light"
+      {% else %}
+        class="card text-center bg-danger text-light"
+      {% endif %}
+      style="width: 20%"
+      id="container-card"
+    >
+      <div class="card-body">
+        <h5
+          class="card-title"
+          style="
+            text-align: start;
+            opacity: 0.9;
+            font-style: italic;
+            font-size: 32px;
+          "
+        >
+          {{ sensors.case_sensor }}
+        </h5>
+        <p
+          class="card-text"
+          style="text-align: end; opacity: 0.7; font-size: 22px"
+        >
+          {{ articles.case_sensor }}
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="pcs2 row mt-5"></div>
+{% endblock body %}

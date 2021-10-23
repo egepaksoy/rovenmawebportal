@@ -1,6 +1,15 @@
 from django.db import models
 
 
+class Sensors(models.Model):
+    transmitter_temprature = models.FloatField(verbose_name="Data Temprature")
+    reciever_temprature = models.FloatField(verbose_name="Area Temprature")
+    case_sensor = models.BooleanField(verbose_name="Case Sensor")
+
+    def __str__(self):
+        return "Sensor"
+
+
 class Log(models.Model):
     level = models.CharField(verbose_name="Log Seviyesi", max_length=50)
     source = models.CharField(verbose_name="Log Kaynağı", max_length=50)

@@ -5,3 +5,4 @@ from .models import *
 admin.site.register(Log)
 admin.site.register(Statics)
 admin.site.register(Packets)
+admin.site.register(Sensors)
