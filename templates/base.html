@@ -94,7 +94,7 @@
                             <li>
                               <a class="dropdown-item" href="{% url 'statics' %}">{{ navbar_articles.statistics_field }}</a>
                             </li>
-                            <li><a class="dropdown-item" href="{% url 'packets' %}">PAKETLER</a></li>
+                            <li><a class="dropdown-item" href="{% url 'packets' %}">{{ navbar_articles.packets }}</a></li>
                             <li>
                               <a class="dropdown-item" href="{% url 'log' %}"
                                 >{{ navbar_articles.log_records }}</a
@@ -102,7 +102,7 @@
                             </li>
                             <li>
                               <a class="dropdown-item" href="{% url 'sensors' %}"
-                                >SENSORLER</a
+                                >{{ navbar_articles.sensors }}</a
                               >
                             </li>
                           </ul>
@@ -164,7 +164,7 @@
                               >
                             </li>
                             <li>
-                              <a class="dropdown-item" href="#">{{ navbar_articles.authorization }}</a>
+                              <a class="dropdown-item" href="{% url 'auth' %}">{{ navbar_articles.authorization }}</a>
                             </li>
                           </ul>
                         </li>

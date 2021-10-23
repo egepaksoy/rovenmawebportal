@@ -142,6 +142,7 @@ class NavbarFooterArticles(models.Model):
     statistics_field = models.CharField(
         verbose_name="Statistics (field)", max_length=20)
     sensors = models.CharField(verbose_name="Sensors (field)", max_length=20)
+    packets = models.CharField(verbose_name="Packets (field)", max_length=20, default=None, null=True)
     log_records = models.CharField(
         verbose_name="Log Records (field)", max_length=30)
     system_settings = models.CharField(
