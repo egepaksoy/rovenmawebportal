@@ -1,1 +1,61 @@
-{% extends 'base.html' %}
+# TODO: tabloda admin, superadmin vb. yetkleri değiştirebilmeli
+{% extends 'base.html' %} {% block head %}
+<title>Yetki</title>
+<style media="screen">
+  .table-int {
+    width: 100%;
+    height: 100%;
+    margin-bottom: 10%;
+  }
+  .table-ic {
+    float: left;
+  }
+</style>
+{% endblock head %} {% block body %}
+<div class="container mt-5">
+  <h1 class="text text-center">Yetkilendirme Tablosu</h1>
+  <div id="table">
+    <form method="post" class="mb-5">
+      {% csrf_token %}
+      <div class="table-ic">
+        <select
+          class="form-select"
+          style="background-color: #e6e6e6; width: 10rem"
+        >
+          <option value="operator" selected>Operator</option>
+          <option value="admin">Admin</option>
+          <option value="superadmin">Super Admin</option>
+        </select>
+      </div>
+      <input class="btn btn-success table-ic ml-2" type="submit" value="Git" />
+    </form>
+
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">Yetki Konusu</th>
+          <th scope="col">Erişme</th>
+          <th scope="col">Değiştirme</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Mark</td>
+          <td>Otto</td>
+          <td>@mdo</td>
+        </tr>
+        <tr>
+          <td>Jacob</td>
+          <td>Thornton</td>
+          <td>@fat</td>
+        </tr>
+        <tr>
+          <td>Larry</td>
+          <td>the Bird</td>
+          <td>@twitter</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock body %}

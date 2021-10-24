@@ -13,7 +13,7 @@
 </style>
 {% endblock head %} {% block body %}
 
-<div style="margin: 10%;">
+<div style="margin: 10%">
   <div class="pcs1 row mt-5 mb-5">
     <div
       class="card text-center bg-secondary text-light"
@@ -69,11 +69,18 @@
 
     <!-- Üçuncu kart -->
     <div
-      {% if sensors.case_sensor %}
-        class="card text-center bg-success text-light"
-      {% else %}
-        class="card text-center bg-danger text-light"
-      {% endif %}
+      {%
+      if
+      sensors.case_sensor
+      %}
+      class="card text-center bg-success text-light"
+      {%
+      else
+      %}
+      class="card text-center bg-danger text-light"
+      {%
+      endif
+      %}
       style="width: 20%"
       id="container-card"
     >
