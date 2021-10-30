@@ -36,38 +36,41 @@
 
     var memoryData = google.visualization.arrayToDataTable([
       ["Place", "Percent"],
-      ["{{ articles.free }}", memoryTop - memoryNow],
-      ["{{ articles.now }}", memoryNow],
+      ["{{ articles.free }} (GB)", memoryTop - memoryNow],
+      ["{{ articles.now }} (GB)", memoryNow],
     ]);
 
     var ssdData = google.visualization.arrayToDataTable([
       ["Place", "Percent"],
-      ["{{ articles.free }}", ssdTop - ssdNow],
-      ["{{ articles.now }}", ssdNow],
+      ["{{ articles.free }} (GB)", ssdTop - ssdNow],
+      ["{{ articles.now }} (GB)", ssdNow],
     ]);
 
     var cpuData = google.visualization.arrayToDataTable([
       ["Place", "Percent"],
-      ["{{ articles.free }}", cpuTop - cpuNow],
-      ["{{ articles.now }}", cpuNow],
+      ["{{ articles.free }} (%)", cpuTop - cpuNow],
+      ["{{ articles.now }} (%)", cpuNow],
     ]);
 
     var memoryOptions = {
       titlePosition: 'none',
       pieSliceTextStyle: {fontSize: 14},
       legend: {position: 'bottom', textStyle: {fontSize: 14}},
+      slices: {0: {color: "#7b8996"}, 1: {color: "#014e8f"}},
     };
 
     var ssdOptions = {
       titlePosition: 'none',
       pieSliceTextStyle: {fontSize: 14},
       legend: {position: 'bottom', textStyle: {fontSize: 14}},
+      slices: {0: {color: "#7b8996"}, 1: {color: "#014e8f"}},
     };
 
     var cpuOptions = {
       titlePosition: 'none',
       pieSliceTextStyle: {fontSize: 14},
       legend: {position: 'bottom', textStyle: {fontSize: 14}},
+      slices: {0: {color: "#7b8996"}, 1: {color: "#014e8f"}},
     };
 
     var memoryChart = new google.visualization.PieChart(
@@ -82,6 +85,7 @@
       document.getElementById("cpu")
     );
 
+
     memoryChart.draw(memoryData, memoryOptions);
     ssdChart.draw(ssdData, ssdOptions);
     cpuChart.draw(cpuData, cpuOptions);
@@ -90,15 +94,15 @@
 {% endblock head %} {% block body %}
 <div class="mb-5 container row">
   <div class="chart-pie-tere">
-    <h1 class="text text-center">{{ articles.memory }}</h1>
+    <h2 class="text text-center">{{ articles.memory }}</h2>
     <div id="memory" class="pie-chart"></div>
   </div>
   <div class="chart-pie-tere">
-    <h1 class="text text-center">{{ articles.ssd }}</h1>
+    <h2 class="text text-center">{{ articles.ssd }}</h2>
     <div id="ssd" class="pie-chart"></div>
   </div>
   <div class="chart-pie-tere">
-    <h1 class="text text-center">{{ articles.cpu }}</h1>
+    <h2 class="text text-center">{{ articles.cpu }}</h2>
     <div id="cpu" class="pie-chart"></div>
   </div>
 </div

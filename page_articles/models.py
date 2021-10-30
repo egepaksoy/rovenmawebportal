@@ -188,7 +188,7 @@ class StaticsArticle(models.Model):
     error_text = models.CharField(
         verbose_name="Your Browser Does Not Support HTML5 (text)", max_length=50, default=None)
     free = models.CharField(verbose_name="Free", max_length=10, null=True, default=None)
-    now = models.CharField(verbose_name="Now", max_length=10, null=True, default=None)
+    now = models.CharField(verbose_name="Usage", max_length=10, null=True, default=None)
     memory = models.CharField(verbose_name="Memory", max_length=15, null=True, default=None)
     ssd = models.CharField(verbose_name="SSD", max_length=15, null=True, default=None)
     cpu = models.CharField(verbose_name="CPU", max_length=15, null=True, default=None)
