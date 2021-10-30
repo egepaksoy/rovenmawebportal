@@ -1,92 +1,105 @@
 {% extends 'base.html' %} {% block head %}
-<script>
-  window.onload = function () {
-    var memory = {{ statics.memory_now }}*100/{{ statics.memory_top }}
-    var cpu = {{ statics.cpu_now }}*100/{{ statics.cpu_top }}
-    var ssd = {{ statics.ssd_now }}*100/{{ statics.ssd_top }}
+<style media="screen">
+  .container {
+    width: 100%;
+    height: 100%;
+    margin: 5rem auto;
+  }
+  .chart-pie-tere {
+    margin: auto;
+    width: 50%;
+    height: 50%;
+  }
+  .pie-chart {
+    margin: auto;
+    width: 450px;
+    height: 400px;
+  }
+</style>
+<script
+  type="text/javascript"
+  src="https://www.gstatic.com/charts/loader.js"
+></script>
+<script type="text/javascript">
+  google.charts.load("current", { packages: ["corechart"] });
+  google.charts.setOnLoadCallback(drawCharts);
 
-    CanvasJS.addColorSet("kindiTheme", ["#014E8F", "#cecece"]);
+  function drawCharts() {
+    var memoryTop = {{ statics.memory_top }};
+    var memoryNow = {{ statics.memory_now }};
 
-    var ssdChart = new CanvasJS.Chart("ssd_chart", {
-      animationEnabled: true,
-      title: {
-        text: "SSD percent",
-      },
-      data: [
-        {
-          type: "pie",
-          startAngle: 240,
-          ValueFormatString: '##0.00"%"',
-          indexLabel: "{label} {y}",
-          dataPoints: [
-            { y: ssd, label: "Usage", color: "#014E8F" },
-            { y: 100 - ssd, label: "Free", color: "#cecece" },
-          ],
-        },
-      ],
-    });
+    var ssdTop = {{ statics.ssd_top }};
+    var ssdNow = {{ statics.ssd_now }};
 
-    var cpuChart = new CanvasJS.Chart("cpu_chart", {
-      animationEnabled: true,
-      title: {
-        text: "CPU percent",
-      },
-      data: [
-        {
-          type: "pie",
-          startAngle: 240,
-          colorSet: "kindiTheme",
-          ValueFormatString: '##0.00"%"',
-          indexLabel: "{label} {y}",
-          dataPoints: [
-            { y: cpu, label: "Usage", color: "#014E8F" },
-            { y: 100 - cpu, label: "Free", color: "#cecece" },
-          ],
-        },
-      ],
-    });
+    var cpuTop = {{ statics.cpu_top }};
+    var cpuNow = {{ statics.cpu_now }};
 
-    var memoryChart = new CanvasJS.Chart("memory_chart", {
-      animationEnabled: true,
-      title: {
-        text: "Memory percent",
-      },
-      data: [
-        {
-          type: "pie",
-          startAngle: 240,
-          colorSet: "colorsetDef",
-          yValueFormatString: '##0.00"%"',
-          indexLabel: "{label} {y}",
-          dataPoints: [
-            { y: memory, label: "Usage", color: "#014E8F" },
-            { y: 100 - memory, label: "Free", color: "#cecece" },
-          ],
-        },
-      ],
-    });
+    var memoryData = google.visualization.arrayToDataTable([
+      ["Place", "Percent"],
+      ["Free", memoryTop - memoryNow],
+      ["Now", memoryNow],
+    ]);
 
+    var ssdData = google.visualization.arrayToDataTable([
+      ["Place", "Percent"],
+      ["Free", ssdTop - ssdNow],
+      ["Now", ssdNow],
+    ]);
 
-    memoryChart.render();
-    cpuChart.render();
-    ssdChart.render();
-  };
+    var cpuData = google.visualization.arrayToDataTable([
+      ["Place", "Percent"],
+      ["Free", cpuTop - cpuNow],
+      ["Now", cpuNow],
+    ]);
+
+    var memoryOptions = {
+      titlePosition: 'none',
+      pieSliceTextStyle: {fontSize: 14},
+      legend: {position: 'bottom', textStyle: {fontSize: 14}},
+    };
+
+    var ssdOptions = {
+      titlePosition: 'none',
+      pieSliceTextStyle: {fontSize: 14},
+      legend: {position: 'bottom', textStyle: {fontSize: 14}},
+    };
+
+    var cpuOptions = {
+      titlePosition: 'none',
+      pieSliceTextStyle: {fontSize: 14},
+      legend: {position: 'bottom', textStyle: {fontSize: 14}},
+    };
+
+    var memoryChart = new google.visualization.PieChart(
+      document.getElementById("memory")
+    );
+
+    var ssdChart = new google.visualization.PieChart(
+      document.getElementById("ssd")
+    );
+
+    var cpuChart = new google.visualization.PieChart(
+      document.getElementById("cpu")
+    );
+
+    memoryChart.draw(memoryData, memoryOptions);
+    ssdChart.draw(ssdData, ssdOptions);
+    cpuChart.draw(cpuData, cpuOptions);
+  }
 </script>
-
 {% endblock head %} {% block body %}
-<div id="piecharts" class="row mt-5" style="width: 100%; height: 20%">
-  <div
-    id="memory_chart"
-    style="margin-left: auto; margin-right: auto; height: auto; width: 30%"
-  ></div>
-  <div
-    id="ssd_chart"
-    style="margin-left: auto; margin-right: auto; height: auto; width: 30%"
-  ></div>
-  <div
-    id="cpu_chart"
-    style="margin-left: auto; margin-right: auto; height: auto; width: 30%"
-  ></div>
-</div>
-<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+<div class="mb-5 container row">
+  <div class="chart-pie-tere">
+    <h1 class="text text-center">Memory</h1>
+    <div id="memory" class="pie-chart"></div>
+  </div>
+  <div class="chart-pie-tere">
+    <h1 class="text text-center">SSD</h1>
+    <div id="ssd" class="pie-chart"></div>
+  </div>
+  <div class="chart-pie-tere">
+    <h1 class="text text-center">CPU</h1>
+    <div id="cpu" class="pie-chart"></div>
+  </div>
+</div
 {% endblock body %}
