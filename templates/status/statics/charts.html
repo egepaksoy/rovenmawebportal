@@ -36,20 +36,20 @@
 
     var memoryData = google.visualization.arrayToDataTable([
       ["Place", "Percent"],
-      ["Free", memoryTop - memoryNow],
-      ["Now", memoryNow],
+      ["{{ articles.free }}", memoryTop - memoryNow],
+      ["{{ articles.now }}", memoryNow],
     ]);
 
     var ssdData = google.visualization.arrayToDataTable([
       ["Place", "Percent"],
-      ["Free", ssdTop - ssdNow],
-      ["Now", ssdNow],
+      ["{{ articles.free }}", ssdTop - ssdNow],
+      ["{{ articles.now }}", ssdNow],
     ]);
 
     var cpuData = google.visualization.arrayToDataTable([
       ["Place", "Percent"],
-      ["Free", cpuTop - cpuNow],
-      ["Now", cpuNow],
+      ["{{ articles.free }}", cpuTop - cpuNow],
+      ["{{ articles.now }}", cpuNow],
     ]);
 
     var memoryOptions = {
@@ -90,15 +90,15 @@
 {% endblock head %} {% block body %}
 <div class="mb-5 container row">
   <div class="chart-pie-tere">
-    <h1 class="text text-center">Memory</h1>
+    <h1 class="text text-center">{{ articles.memory }}</h1>
     <div id="memory" class="pie-chart"></div>
   </div>
   <div class="chart-pie-tere">
-    <h1 class="text text-center">SSD</h1>
+    <h1 class="text text-center">{{ articles.ssd }}</h1>
     <div id="ssd" class="pie-chart"></div>
   </div>
   <div class="chart-pie-tere">
-    <h1 class="text text-center">CPU</h1>
+    <h1 class="text text-center">{{ articles.cpu }}</h1>
     <div id="cpu" class="pie-chart"></div>
   </div>
 </div
