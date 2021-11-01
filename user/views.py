@@ -8,21 +8,31 @@ from django.contrib.auth.decorators import login_required
 from page_articles.models import *
 
 
+def edit(request):
+    return HttpResponse("ede")
+
 def authorization(request):
-    lang = "EN"
-    cookie_lang = request.COOKIES.get("lang")
-    for article in RemoteAccessArticles.objects.all():
-        if cookie_lang == article.lang:
-            lang = article.lang
-            break
+    if request.user.is_authenticated:
+        lang = "EN"
+        cookie_lang = request.COOKIES.get("lang")
+        for article in RemoteAccessArticles.objects.all():
+            if cookie_lang == article.lang:
+                lang = article.lang
+                break
 
-    navbar = NavbarFooterArticles.objects.get(lang=lang)
+        navbar = NavbarFooterArticles.objects.get(lang=lang)
 
-    context = {
-        "navbar_articles": navbar,
-    }
+        context = {
+            "navbar_articles": navbar,
+            "superuser": False,
+        }
 
-    return render(request, "user/authorization.html", context=context)
+        if request.user.is_superuser:
+            context["superuser"] = True
+
+        return render(request, "user/authorization.html", context=context)
+
+    return redirect('login')
 
 def pass_change(request, username):
     lang = "EN"

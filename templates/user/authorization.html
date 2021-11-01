@@ -1,4 +1,4 @@
-# TODO: tabloda admin, superadmin vb. yetkleri değiştirebilmeli
+<!-- TODO: tabloda admin, superadmin vb. yetkleri değiştirebilmeli -->
 {% extends 'base.html' %} {% block head %}
 <title>Yetki</title>
 <style media="screen">
@@ -29,7 +29,11 @@
       </div>
       <input class="btn btn-success table-ic ml-2" type="submit" value="Git" />
     </form>
-
+    {% if superuser %}
+    <a href="{% url 'user_edit' %}" style="float: right" class="btn btn-success"
+      ><i class="fas fa-user-edit"></i> Düzenle</a
+    >
+    {% endif %}
     <table class="table table-striped">
       <thead>
         <tr>
@@ -40,19 +44,14 @@
       </thead>
       <tbody>
         <tr>
-          <td>Mark</td>
-          <td>Otto</td>
-          <td>@mdo</td>
+          <th>Mark</th>
+          <td><i class="fas text-success fa-circle"></i><span class="text text-success"> Var</span></td>
+          <td><i class="fas text-success fa-circle"></i><span class="text text-success"> Var</span></td>
         </tr>
         <tr>
-          <td>Jacob</td>
-          <td>Thornton</td>
-          <td>@fat</td>
-        </tr>
-        <tr>
-          <td>Larry</td>
-          <td>the Bird</td>
-          <td>@twitter</td>
+          <th>Jacob</th>
+          <td><i class="fas text-success fa-circle"></i><span class="text text-success"> Var</span></td>
+          <td><i class="fas text-danger fa-circle"></i><span class="text text-danger"> Yok</span></td>
         </tr>
       </tbody>
     </table>
