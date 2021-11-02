@@ -1,6 +1,6 @@
 <!-- TODO: tabloda admin, superadmin vb. yetkleri değiştirebilmeli -->
 {% extends 'base.html' %} {% block head %}
-<title>Yetki</title>
+<title>{{ articles.page_title }}</title>
 <style media="screen">
   .table-int {
     width: 100%;
@@ -13,7 +13,7 @@
 </style>
 {% endblock head %} {% block body %}
 <div class="container mt-5">
-  <h1 class="text text-center">Yetkilendirme Tablosu</h1>
+  <h1 class="text text-center">{{ articles.title }}</h1>
   <div id="table">
     <form method="post" class="mb-5">
       {% csrf_token %}
@@ -21,40 +21,58 @@
         <select
           class="form-select"
           style="background-color: #e6e6e6; width: 10rem"
+          name="user_type"
+          id="user_type"
         >
-          <option value="operator" selected>Operator</option>
-          <option value="admin">Admin</option>
-          <option value="superadmin">Super Admin</option>
+          <option value="operator" id="operator">Operator</option>
+          <option value="admin" id="admin">Admin</option>
+          <option value="superadmin" id="superadmin">Super Admin</option>
         </select>
       </div>
-      <input class="btn btn-success table-ic ml-2" type="submit" value="Git" />
+      <input class="btn btn-success table-ic ml-2" type="submit" value="{{ articles.go }}" />
     </form>
     {% if superuser %}
     <a href="{% url 'user_edit' %}" style="float: right" class="btn btn-success"
-      ><i class="fas fa-user-edit"></i> Düzenle</a
+      ><i class="fas fa-user-edit"></i> {{ articles.edit }}</a
     >
     {% endif %}
     <table class="table table-striped">
       <thead>
         <tr>
-          <th scope="col">Yetki Konusu</th>
-          <th scope="col">Erişme</th>
-          <th scope="col">Değiştirme</th>
+          <th scope="col">{{ articles.authority_content }}</th>
+          <th scope="col">{{ articles.access }}</th>
+          <th scope="col">{{ articles.change }}</th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <th>Mark</th>
-          <td><i class="fas text-success fa-circle"></i><span class="text text-success"> Var</span></td>
-          <td><i class="fas text-success fa-circle"></i><span class="text text-success"> Var</span></td>
-        </tr>
-        <tr>
-          <th>Jacob</th>
-          <td><i class="fas text-success fa-circle"></i><span class="text text-success"> Var</span></td>
-          <td><i class="fas text-danger fa-circle"></i><span class="text text-danger"> Yok</span></td>
+          <th>USER ADMİNİSTRATİON</th>
+          <td>
+            {% if auth.user_administration_access %}<i
+              class="fas text-success fa-circle"
+            ></i
+            ><span class="text text-success"
+              >{% else %}<i class="fas text-danger fa-circle"></i
+              ><span class="text text-danger">{% endif %} 
+              {{ auth.user_administration_access }}</span
+            >
+          </td>
+          <td>
+            {% if auth.user_administration_change %}<i
+              class="fas text-success fa-circle"
+            ></i
+            ><span class="text text-success"
+              >{% else %}<i class="fas text-danger fa-circle"></i
+              ><span class="text text-danger">{% endif %} 
+              {{ auth.user_administration_change }}</span
+            >
+          </td>
         </tr>
       </tbody>
     </table>
   </div>
 </div>
+<script>
+  document.getElementById("{{ auth.user_type }}").selected = true;
+</script>
 {% endblock body %}

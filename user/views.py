@@ -6,6 +6,7 @@ from django.contrib import messages
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from page_articles.models import *
+from .models import *
 
 
 def edit(request):
@@ -21,10 +22,28 @@ def authorization(request):
                 break
 
         navbar = NavbarFooterArticles.objects.get(lang=lang)
+        auth = Authorization.objects.get(user_type="operator")
+        articles = UserAuthorization.objects.get(lang=lang)
+
+
+        if request.method == "POST":
+            user_type = request.POST.get("user_type")
+            auth = Authorization.objects.get(user_type=user_type)
+
+            context = {
+                "navbar_articles": navbar,
+                "auth": auth,
+                "superuser": request.user.is_superuser,
+                "articles": articles
+            }
+
+            return render(request, "user/authorization.html", context=context)
 
         context = {
             "navbar_articles": navbar,
             "superuser": False,
+            "auth": auth,
+            "articles": articles
         }
 
         if request.user.is_superuser:

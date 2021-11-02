@@ -1,6 +1,22 @@
 from django.db import models
 
 
+class UserAuthorization(models.Model):
+    lang = models.CharField(
+        verbose_name="Language (like TR or EN)", max_length=2)
+    page_title = models.CharField(verbose_name="Authorization", max_length=20, default=None)
+    title = models.CharField(verbose_name="Title", max_length=25)
+    go = models.CharField(verbose_name="Go", max_length=10)
+    edit = models.CharField(verbose_name="Edit", max_length=10)
+    authority_content = models.CharField(verbose_name="Authority Content", max_length=20)
+    access = models.CharField(verbose_name="Access", max_length=10)
+    change = models.CharField(verbose_name="Change", max_length=10)
+
+    def __str__(self):
+        return self.lang
+    
+
+
 class Sensor(models.Model):
     lang = models.CharField(
         verbose_name="Language (like TR or EN)", max_length=2)
